@@ -7,6 +7,7 @@ import by.epam.lukyanau.rentService.dao.SqlQuery;
 import by.epam.lukyanau.rentService.dao.UserDao;
 import by.epam.lukyanau.rentService.entity.User;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,13 +35,14 @@ public class UserDaoImpl implements UserDao {
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
+                int userId = resultSet.getInt("id");
                 String userName = resultSet.getString("name");
                 String userSurname = resultSet.getString("surname");
                 String userLogin = resultSet.getString("login");
                 String userEmail = resultSet.getString("email");
                 String userPhoneNumber = resultSet.getString("phone");
                 int roleId = resultSet.getInt("role");
-                user = userCreator.createUser(userName, userSurname, userLogin, userEmail, userPhoneNumber, roleId);
+                user = userCreator.createUser(userId, userName, userSurname, userLogin, userEmail, userPhoneNumber, roleId);
             }
 
         } catch (SQLException exp) {
@@ -66,17 +68,15 @@ public class UserDaoImpl implements UserDao {
         return userPassword;
     }
 
-    public boolean updatePasswordByLogin(String login, String password) throws DAOException {
-        boolean isUpdate = false;
+    public void updatePasswordByLogin(String login, String password) throws DAOException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_PASSWORD_BY_LOGIN)) {
             statement.setString(1, password);
             statement.setString(2, login);
-            isUpdate = statement.executeUpdate() > 0;
+            statement.executeUpdate();
         } catch (SQLException exp) {
             throw new DAOException(exp);
         }
-        return isUpdate;
     }
 
 
@@ -105,6 +105,31 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findAll() throws DAOException {
         return null;
+    }
+
+    public void checkAccount(User user) throws DAOException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.CHECK_ACCOUNT)) {
+            statement.setInt(1, user.getUserId());
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
+                createAccount(user);
+            }
+        } catch (SQLException exp) {
+            throw new DAOException(exp);
+        }
+    }
+
+    private void createAccount(User user) throws DAOException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.CREATE_ACCOUNT)) {
+            statement.setBigDecimal(1, new BigDecimal(0));
+            statement.setInt(2, 1);
+            statement.setInt(3, user.getUserId());
+            statement.executeUpdate();
+        } catch (SQLException exp) {
+            throw new DAOException(exp);
+        }
     }
 
 }

@@ -19,6 +19,11 @@ public class UserCreator {
         return new User(name,surname,login,email,phoneNumber,roleId);
     }
 
+    public User createUser(int userId, String name, String surname, String login, String email,
+                           String phoneNumber, int roleId){
+        return new User(userId,name,surname,login,email,phoneNumber,roleId);
+    }
+
     public User createUser(BigDecimal balance, byte status, String name, String surname, String login,
                            String email, String phoneNumber, int roleId) {
         return new User(balance, status, name, surname, login, email, phoneNumber, roleId);

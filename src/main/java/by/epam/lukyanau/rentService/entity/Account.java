@@ -10,6 +10,10 @@ public class Account extends Entity {
     public Account() {
     }
 
+    public Account(int userId) {
+        this.userId = userId;
+    }
+
     public Account(BigDecimal balance, byte status) {
         this.balance = balance;
         this.status = status;

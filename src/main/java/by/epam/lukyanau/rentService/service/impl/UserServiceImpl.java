@@ -7,8 +7,6 @@ import by.epam.lukyanau.rentService.entity.User;
 import by.epam.lukyanau.rentService.service.UserService;
 import by.epam.lukyanau.rentService.validator.UserValidator;
 
-import static by.epam.lukyanau.rentService.exception.ErrorCode.LOGIN_NOT_UNIQUE;
-import static by.epam.lukyanau.rentService.exception.ErrorCode.PASSWORD_NOT_SAME;
 
 public class UserServiceImpl implements UserService {
     private static final UserServiceImpl instance = new UserServiceImpl();
@@ -28,34 +26,17 @@ public class UserServiceImpl implements UserService {
         try {
             User signInUser = userDao.findByLogin(login);
             String userPassword = userDao.findPasswordByLogin(login);
-            if (password.equals(userPassword)){
+            if (password.equals(userPassword)) {
+                checkAccount(signInUser);
                 return signInUser;
-            }else {
-                return null;
+            } else {
+                throw new IncorrectSignInParametersException("Incorrect sign in parameters");
             }
         } catch (DAOException exp) {
             throw new ServiceException(exp);
         }
     }
 
-//    @Override
-//    public boolean signUpUser(String name, String surname, String login, String email,
-//                              String phoneNumber, String password, String confirmPassword) throws ServiceException {
-//        boolean isAdded = false;
-//        UserCreator userCreator = UserCreator.getInstance();
-//        try {
-//            if (UserValidator.checkSingUpParameters(name, surname, login, password, email, phoneNumber) &&
-//                    checkLoginUnique(login) && verifyPassword(password, confirmPassword)) {
-//                User registeredUser = userCreator.createUser(name, surname, login, password, email, phoneNumber, 2);
-//                isAdded = userDao.add(registeredUser);
-//            }else{
-//                throw new ServiceException("Invalid inputs");
-//            }
-//        } catch (DAOException exp) {
-//            throw new ServiceException(exp);
-//        }
-//        return isAdded;
-//    }
 
     @Override
     public User signUpUser(String name, String surname, String login, String email,
@@ -69,7 +50,7 @@ public class UserServiceImpl implements UserService {
             User registeredUser = userDao.add(createdUser);
             userDao.updatePasswordByLogin(login, password);
             return registeredUser;
-        } catch (DAOException exp) {
+        } catch (DAOException | IncorrectSignInParametersException exp) {
             throw new ServiceException(exp);
         }
 
@@ -93,12 +74,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void checkLogin(String login) throws ServiceException {
-        try {
-            if (userDao.findByLogin(login) != null) {
 
+    private void checkAccount(User user) throws ServiceException {
+        try {
+            if (user.getRole().getRoleId() == 2) {
+                userDao.checkAccount(user);
             }
-        } catch (DAOException exp) {
+        }catch (DAOException exp){
             throw new ServiceException(exp);
         }
     }

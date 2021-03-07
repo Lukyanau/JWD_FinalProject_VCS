@@ -22,7 +22,7 @@ public class SignIn implements Command {
 
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         try {
             String login = request.getParameter("username");
@@ -30,8 +30,8 @@ public class SignIn implements Command {
             User currentUser = userService.signInUser(login, password);
             if (currentUser != null) {
                 User.Role currentRole = currentUser.getRole();
-                session.setAttribute("sessionUser",currentUser);
-                session.setAttribute("sessionRole",currentRole);
+                session.setAttribute("sessionUser", currentUser);
+                session.setAttribute("sessionRole", currentRole);
                 response.sendRedirect("Controller?command=home_page");
             }
         } catch (ServiceException | IncorrectSignInParametersException exp) {

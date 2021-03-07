@@ -32,12 +32,20 @@ public class User extends Account {
     private String name;
     private String surname;
     private String login;
-
     private String email;
     private String phoneNumber;
     private Role role;
 
     public User(String name, String surname, String login, String email, String phoneNumber, int roleId) {
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.role = Role.getRoleById(roleId);
+    }
+    public User(int userId, String name, String surname, String login, String email, String phoneNumber, int roleId) {
+        super(userId);
         this.name = name;
         this.surname = surname;
         this.login = login;
