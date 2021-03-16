@@ -1,11 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:choose>
+    <c:when test="${not empty language}"> <fmt:setLocale value="${language}"/></c:when>
+    <c:when test="${empty language}"> <fmt:setLocale value="en"/></c:when>
+</c:choose>
+
+<fmt:setBundle basename="pagecontent.language"/>
 <html>
 <body>
-<footer class="footer text-faded text-center py-5">
-    <div class="container">
-        <p class="m-0 small">Copyright&nbsp;©&nbsp;Brand 2020</p>
+<div class="layout-footer">
+    <div class="container_log">
+        <div class="layout-footer__copyright"><fmt:message key="footer.text"/></div>
     </div>
-</footer>
+</div>
 </body>
 </html>

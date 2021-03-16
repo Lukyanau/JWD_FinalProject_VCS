@@ -1,28 +1,28 @@
 package by.epam.lukyanau.rentService.controller.command.impl;
 
 import by.epam.lukyanau.rentService.controller.command.Command;
+import by.epam.lukyanau.rentService.controller.command.PagePath;
 import by.epam.lukyanau.rentService.entity.User;
 import by.epam.lukyanau.rentService.exception.IncorrectSignInParametersException;
 import by.epam.lukyanau.rentService.exception.ServiceException;
 import by.epam.lukyanau.rentService.service.impl.UserServiceImpl;
-import com.mysql.cj.Session;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class SignIn implements Command {
+
     public UserServiceImpl userService = UserServiceImpl.getInstance();
 
     public final static Logger LOGGER = LogManager.getLogger();
 
-
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String page = null;
         HttpSession session = request.getSession();
         try {
             String login = request.getParameter("username");
@@ -32,11 +32,15 @@ public class SignIn implements Command {
                 User.Role currentRole = currentUser.getRole();
                 session.setAttribute("sessionUser", currentUser);
                 session.setAttribute("sessionRole", currentRole);
-                response.sendRedirect("Controller?command=home_page");
+                page = PagePath.PASSING_HOME;
             }
-        } catch (ServiceException | IncorrectSignInParametersException exp) {
+        } catch (ServiceException exp) {
             LOGGER.error(exp);
-
+            page = PagePath.ERROR;
+        } catch (IncorrectSignInParametersException exp) {
+            page = PagePath.SIGN_IN;
+            request.setAttribute("errorMessage", "Incorrect login or password");
         }
+        return page;
     }
 }

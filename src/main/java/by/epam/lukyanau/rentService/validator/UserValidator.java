@@ -53,10 +53,7 @@ public class UserValidator {
         return isEmptyOrNull(str) && str.matches(PHONE_REGEX);
     }
 
-
     private static boolean isEmptyOrNull(String str) {
         return str != null && !str.isEmpty();
     }
-
-
 }

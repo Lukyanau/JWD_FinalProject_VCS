@@ -1,6 +1,8 @@
 package by.epam.lukyanau.rentService.controller.command.impl;
 
 import by.epam.lukyanau.rentService.controller.command.Command;
+import by.epam.lukyanau.rentService.controller.command.PagePath;
+import by.epam.lukyanau.rentService.exception.IncorrectSignInParametersException;
 import by.epam.lukyanau.rentService.exception.LoginNotUniqueException;
 import by.epam.lukyanau.rentService.exception.PasswordNotConfirmedException;
 import by.epam.lukyanau.rentService.exception.ServiceException;
@@ -21,8 +23,8 @@ public class SignUp implements Command {
 
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String page;
         try {
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
@@ -32,9 +34,13 @@ public class SignUp implements Command {
             String password = request.getParameter("password");
             String confirmPassword = request.getParameter("password_confirmation");
             userService.signUpUser(name, surname, login, email, phoneNumber, password, confirmPassword);
-            response.sendRedirect("Controller?command=go_to_sign_in_page");
-        } catch (ServiceException | LoginNotUniqueException | PasswordNotConfirmedException exp) {
+            page = PagePath.SIGN_IN;
+        } catch (ServiceException exp) {
             LOGGER.error(exp);
+            page = PagePath.ERROR;
+        } catch (LoginNotUniqueException | PasswordNotConfirmedException | IncorrectSignInParametersException exp) {
+            page = PagePath.PASSING_REGISTRATION;
         }
+        return page;
     }
 }

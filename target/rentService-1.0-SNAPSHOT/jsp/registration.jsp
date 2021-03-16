@@ -5,9 +5,8 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
 </head>
-<body style="background-image: url(${pageContext.request.contextPath}/images/about.jpg);background-size: cover;">
+<body style="background-image: url(${pageContext.request.contextPath}/images/registration.jpg);background-size: cover;">
 <div class="container">
     <div class="row centered-form">
         <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
@@ -16,7 +15,7 @@
                     <h3 class="panel-title" align="center">Please Register</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form" action="Controller" method="post">
+                    <form role="form" action="RentCar" method="post">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -58,9 +57,12 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="command" value="save_new_user"/>
-                        <input type="submit" value="Register" class="btn btn-info btn-block">
-
+                        <div class="someDiv">
+                            <input type="hidden" name="command" value="sign_up"/>
+                            <input type="submit" value="Register" class="btn btn-info btn-block">
+                            <input type="hidden" name="command" value="passing_sign_in"/>
+                            <input type="submit" value="Return To Sign In" class="btn btn-info btn-block">
+                        </div>
                     </form>
                 </div>
             </div>

@@ -15,7 +15,7 @@ import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public enum ConnectionPool {
+public enum ConnectionPool{
 
     INSTANCE;
 
@@ -35,8 +35,6 @@ public enum ConnectionPool {
         initializePool();
     }
 
-
-
     public ProxyConnection getConnection() {
         ProxyConnection proxyConnection = null;
         try {
@@ -47,7 +45,6 @@ public enum ConnectionPool {
         }
         return proxyConnection;
     }
-
 
     public void releaseConnection(Connection connection) {
         if (connection.getClass() == ProxyConnection.class
@@ -97,6 +94,4 @@ public enum ConnectionPool {
             }
         }
     }
-
-
 }

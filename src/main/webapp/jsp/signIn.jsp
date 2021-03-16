@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -17,7 +18,7 @@
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <form id="login-form" class="form" action="Controller" method="post">
+                    <form id="login-form" class="form" action="RentCar" method="post">
                         <h3 class="text-center text-info">Sign in</h3>
                         <div class="form-group">
                             <label for="username" class="text-info">Login:</label><br>
@@ -34,7 +35,7 @@
                         <span class="error" style="color:#ff340a">${errorMessage}</span>
                         <div id="register-link" class="text-right">
                             <br />
-                            <a href="Controller?command=registration" class="text-info">Register here</a>
+                            <a href="RentCar?command=passing_registration" class="text-info">Register here</a>
                         </div>
                     </form>
                 </div>

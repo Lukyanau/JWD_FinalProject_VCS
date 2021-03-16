@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User extends Account {
+
     public enum Role{
         ADMIN(1),
         USER(2);

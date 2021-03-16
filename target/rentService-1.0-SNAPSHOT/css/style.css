@@ -1,5 +1,6 @@
 .nav-link:hover, a:hover, #butt:hover, #buttOrd:hover {
-    background-color: #688181;!important;
+    background-color: #688181;
+!important;
     opacity: initial;
 }
 
@@ -7,9 +8,17 @@
     background-color: unset;
 }
 
-.nav-link, a, #butt, #buttOrd{
-    background-color: unset;!important;
+.nav-link, a, #butt, #buttOrd {
+    background-color: unset;
+!important;
     transition: 0.5s linear;
+}
+
+.container_log {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1230px;
+    padding: 0 15px;
 }
 
 #butt {
@@ -32,103 +41,261 @@
     outline: none;
 }
 
-@media only screen and (max-width : 480px){
+@media only screen and (max-width: 480px) {
     .carousel-control, .carousel-control.right {
-        display:none;
+        display: none;
     }
 }
-@media(min-width: 480px) {
+
+@media (min-width: 480px) {
     #carouselMainInner {
         margin: 130px 0 50px 0;
     }
 }
 
-#mastHeadCars .intro-body{
+#mastHeadCars .intro-body {
     padding: 0px;
 }
 
-@media(max-width: 480px) {
+@media (max-width: 480px) {
     #carouselMainInner {
         margin: 10px 0 10px 0;
     }
 }
 
-#carouselMain a:hover{
+#carouselMain a:hover {
     transition: 0.5s linear;
-    opacity:0.3;
+    opacity: 0.3;
 }
 
-#brandLogo:hover{
+#brandLogo:hover {
     color: #688181;
     transition: 0.5s linear;
 }
 
-#carouselMain a{
+#carouselMain a {
     width: 40px;
 }
 
-#carPage{
+#carPage {
     margin-top: 180px;
     margin-left: 70px;
 }
 
-#adminPage{
+#adminPage {
     margin-top: 180px;
     margin-left: 70px;
     margin-right: 5px;
 }
 
-#paymentPage{
+#paymentPage {
     margin-top: 80px;
 }
 
-#clientOrderPage{
+#clientOrderPage {
     margin-top: 180px;
     margin-left: 100px;
     margin-right: 100px;
 }
 
-#adminOfficeNav{
+#adminOfficeNav {
     margin-top: 130px;
     margin-right: 40px;
 }
 
-#adminNavButtons{
+#adminNavButtons {
     margin-left: auto;
     margin-right: 90px;
 }
 
-#adminContent{
+#adminContent {
     margin-top: 20px;
 }
 
-#adminCarsFilter{
+#adminCarsFilter {
     margin-top: 80px;
     margin-left: 70px;
 }
 
-.intro-body{
-    background-image: url("/img/background_city.png");
+.intro-body {
+    background-image: url("/images/about.jpg");
     background-size: cover;
 }
 
-#errorCarusel{
+.layout-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    padding: 25px 0;
+    transition: background-color .3s;
+}
+
+.layout-header .layout-header__row {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: 'Courgette', cursive;
+    font-weight: 400;
+    font-size: 30px;
+    text-decoration: none;
+    color: #ffffff;
+    text-align: center;
+}
+
+.logo__subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    line-height: 24px;
+    color: #d8b450;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.layout-header .layout-header__menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navigation .navigation__item {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 15px;
+}
+
+.navigation .navigation__item .navigation__link {
+    display: block;
+    position: relative;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color .3s;
+}
+
+.navigation .navigation__item .navigation__link::before {
+    content: '';
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    transform: scale(0);
+    background-color: #ffdb76;
+    transition: transform .3s;
+}
+
+.navigation .navigation__item .navigation__link:hover {
+    color: #ffdb76;
+}
+
+.navigation .navigation__item .navigation__link:hover::before {
+    transform: scale(1);
+}
+
+.language-select {
+    position: relative;
+    margin-left: 20px;
+    padding-left: 10px;
+    border-left: 2px solid #fff;
+}
+
+.language-select.open .language-select__current {
+    color: #ffdb76;
+}
+
+.language-select.open .language-select__current:before {
+    opacity: 1;
+}
+
+.language-select.open .language-select__arrow {
+    transform: rotate(180deg);
+}
+
+.language-select .language-select__current {
+    position: relative;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #fff;
+    cursor: pointer;
+    transition: color .3s;
+}
+
+.language-select .language-select__current:hover {
+    color: #ffdb76;
+}
+
+.language-select .language-select__arrow {
+    position: absolute;
+    display: inline-block;
+    width: 1.5px;
+    height: 1.3px;
+    transition: transform .3s;
+}
+
+.language-select .language-select__dropdown {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    min-width: 100px;
+    padding: 10px;
+    background-color: #565656cc;
+    display: none;
+    z-index: 5;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.language-select li {
+    margin-bottom: 7px;
+}
+
+.language-select li:last-child {
+    margin-bottom: 0;
+}
+
+.language-select a {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color .3s;
+}
+
+.language-select a:hover {
+    color: #d8b450;
+}
+
+
+#errorCarusel {
     bottom: 25%;
 }
 
-#errorCarusel h3 span{
+#errorCarusel h3 span {
     font-size: 35px;
     color: #cb5c18;
     font-weight: 600;
 }
 
-#errorCarusel h2 span{
+#errorCarusel h2 span {
     font-size: 30px;
     color: #e7ff00;
     font-weight: 600;
 }
 
-#errorCarusel h1 span{
+#errorCarusel h1 span {
     font-size: 20px;
     color: #e7ff00;
     font-weight: 400;
@@ -138,11 +305,11 @@
     font-size: 90px;
 }
 
-.far .fa-chevron-left{
+.far .fa-chevron-left {
     font-size: 13px;
 }
 
-.far .fa-chevron-right{
+.far .fa-chevron-right {
     font-size: 13px;
 }
 
@@ -151,16 +318,16 @@
     transition: 0.5s linear;
 }
 
-#pics{
+#pics {
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
-#payBut{
+#payBut {
     margin-bottom: 0;
 }
 
-#labelPage{
+#labelPage {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
@@ -170,166 +337,233 @@
     width: 100%;
 }
 
-#mainNav.navbar-shrink{
+#mainNav.navbar-shrink {
     background-color: #5e6262;
 }
 
-#range_03{
+#range_03 {
     background-color: #688181;
 }
 
-#carElement .form-row{
+#carElement .form-row {
     padding-right: 0;
 }
 
 
-#carElement{
-    background-color: rgba(0,0,0,0.08);
+#carElement {
+    background-color: rgba(0, 0, 0, 0.08);
 }
 
-#orderElement, #clientElement{
-    background-color: rgba(0,0,0,0.08);
+#orderElement, #clientElement {
+    background-color: rgba(0, 0, 0, 0.08);
 }
 
-#carsListTable{
+#carsListTable {
     font-size: 12px;
     color: #ffffff;
     margin-right: 20px;
 }
 
-#listTable{
+#listTable {
     font-size: 12px;
     color: #ffffff;
 }
 
-#ordersListTable, #clientsListTable{
+#ordersListTable, #clientsListTable {
     cursor: default;
     color: #ffffff;
     margin-right: 20px;
 }
 
-#carsListTable .form-control{
-    font-size: 12px; !important;
-    height: 24px; !important;
+#carsListTable .form-control {
+    font-size: 12px;
+!important;
+    height: 24px;
+!important;
     padding: 0;
 }
 
-@media (min-width: 576px){
+@media (min-width: 576px) {
     #carsFilter {
         font-size: 13px;
     }
 }
 
-#carsFilter .form-control{
+#carsFilter .form-control {
     font-size: 13px;
     height: 28px;
 }
 
-#orderDetails{
-    margin:auto 10px auto 10px;
+#orderDetails {
+    margin: auto 10px auto 10px;
 }
 
-#orderTable, #clientOrderTable{
+#orderTable, #clientOrderTable {
     color: #ffffff;
 }
 
-#ordersListTable td, #clientsListTable td{
-    font-size: 12px;
-}
-#ordersListTable th, #clientsListTable th{
-    font-size: 12px;
-}
-#ordersListTable tr, #clientsListTable tr{
+#ordersListTable td, #clientsListTable td {
     font-size: 12px;
 }
 
-#clientOrderTable td{
-    font-size: 18px;
+#ordersListTable th, #clientsListTable th {
+    font-size: 12px;
 }
-#clientOrderTable th{
-    font-size: 18px;
+
+#ordersListTable tr, #clientsListTable tr {
+    font-size: 12px;
 }
-#clientOrderTable tr{
+
+#clientOrderTable td {
     font-size: 18px;
 }
 
-#ordersListTable td[name=email], td[name=car_model]{
+.burger {
+    position: relative;
+    z-index: 101;
+    padding: 0;
+    border: none;
+    width: 40px;
+    height: 40px;
+    display: none;
+    background-color: transparent;
+}
+
+.burger.active .burger__line {
+    background-color: transparent;
+}
+
+.burger.active .burger__line:before {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+.burger.active .burger__line:after {
+    bottom: 0;
+    transform: rotate(45deg);
+}
+
+.burger .burger__line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 4px;
+    transform: translate(-50%, -50%);
+    background-color: #d8b450;
+}
+
+.burger .burger__line:before,
+.burger .burger__line:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 40px;
+    height: 4px;
+    transition: transform .3s, color .3s;
+    background-color: #d8b450;
+}
+
+.burger .burger__line:before {
+    top: -12px;
+}
+
+.burger .burger__line:after {
+    bottom: -12px;
+}
+
+#clientOrderTable th {
+    font-size: 18px;
+}
+
+#clientOrderTable tr {
+    font-size: 18px;
+}
+
+#ordersListTable td[name=email], td[name=car_model] {
     text-decoration: underline;
 }
 
-#ordersListTable td[name=email]:hover, td[name=car_model]:hover{
-    color: #688181;!important;
+#ordersListTable td[name=email]:hover, td[name=car_model]:hover {
+    color: #688181;
+!important;
     transition: 0.5s linear;
     cursor: pointer;
 }
 
-#orderSelect, #clientSelect{
+#orderSelect, #clientSelect {
     padding: 0;
 }
 
-#notificationMessage{
+#notificationMessage {
     width: 80%;
     margin: auto auto 4px auto;
     font-size: 13px;
 }
 
-#declineOrder, #blockUser{
-    background-color: #816767;!important;
+#declineOrder, #blockUser {
+    background-color: #816767;
+!important;
     opacity: initial;
     margin: 0;
     padding: 0;
     font-size: 12px;
 }
 
-#declineOrder:hover, #blockUser:hover{
-    background-color: unset;!important;
+#declineOrder:hover, #blockUser:hover {
+    background-color: unset;
+!important;
     transition: 0.5s linear;
 }
 
-#activateOrder, #unblockUser{
-    background-color: #6e8066;!important;
+#activateOrder, #unblockUser {
+    background-color: #6e8066;
+!important;
     opacity: initial;
     margin: 0;
     padding: 0;
     font-size: 12px;
 }
 
-#paymentOrder{
-    background-color: #6e8066;!important;
+#paymentOrder {
+    background-color: #6e8066;
+!important;
     opacity: initial;
     margin: 0;
     padding: 0 20px;
     font-size: 18px;
 }
 
-#activateOrder:hover, #unblockUser:hover, #paymentOrder:hover{
-    background-color: unset;!important;
+#activateOrder:hover, #unblockUser:hover, #paymentOrder:hover {
+    background-color: unset;
+!important;
     transition: 0.5s linear;
 }
 
-#carouselOrder{
-    margin:auto 10px auto 10px;
+#carouselOrder {
+    margin: auto 10px auto 10px;
 }
 
-#filterbutton, #logBut, #regHref{
+#filterbutton, #logBut, #regHref {
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
 }
 
-#regHref{
+#regHref {
     text-align: center;
 }
 
-#regHref a{
+#regHref a {
     padding: 3px 10px;
 }
 
-#createCarsForm{
+#createCarsForm {
     margin: 200px auto 20px auto;
 }
 
-#createCarsForm .form-control{
+#createCarsForm .form-control {
     font-size: 13px;
     height: 28px;
     margin-right: 3px;
@@ -337,7 +571,7 @@
     padding-left: 10px;
 }
 
-#createCarsForm button{
+#createCarsForm button {
     background-color: rgba(104, 129, 129, 0.5);
     transition: 0.5s linear;
     padding: 5px 20px;
@@ -345,7 +579,8 @@
 }
 
 #createCarsForm button:hover {
-    background-color: #688181;!important;
+    background-color: #688181;
+!important;
     opacity: initial;
 }
 
@@ -353,45 +588,46 @@
     margin: 30px 30px;
 }
 
-#addCarTable .alert{
+#addCarTable .alert {
     margin-bottom: 0;
 }
 
-#addCarTable tr{
+#addCarTable tr {
     margin-bottom: 3px;
 }
 
-#addCarTable td{
+#addCarTable td {
     margin-right: 3px;
 }
 
-td label{
+td label {
     margin-bottom: 0;
 }
 
-#errorPage{
+#errorPage {
     font-size: 20px;
     font-weight: bold;
 }
 
-#notificationPage label{
+#notificationPage label {
     text-align: center;
     font-size: 25px;
 }
 
-#pagination label{
+#pagination label {
     margin-top: 7px;
     font-size: 15px;
     color: #ffffff;
     font-weight: bold;
 }
 
-#pagination a{
+#pagination a {
     margin-top: 7px;
     font-size: 15px;
     color: #ffffff;
     font-weight: bold;
 }
+
 .notification {
     position: absolute;
     top: 50%;
@@ -436,4 +672,12 @@ td label{
 
 .notification .notificationlink:hover {
     background-color: #d8b450;
+}
+
+.layout-footer {
+    padding: 35px 0;
+    font-size: 14px;
+    background-color: #c6a64e;
+    color: #000;
+    text-align: center;
 }

@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User signUpUser(String name, String surname, String login, String email,
-                           String phoneNumber, String password, String confirmPassword) throws ServiceException, LoginNotUniqueException, PasswordNotConfirmedException {
+                           String phoneNumber, String password, String confirmPassword) throws ServiceException, LoginNotUniqueException, PasswordNotConfirmedException, IncorrectSignInParametersException {
         UserCreator userCreator = UserCreator.getInstance();
         try {
             UserValidator.checkSingUpParameters(name, surname, login, password, email, phoneNumber);
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
             User registeredUser = userDao.add(createdUser);
             userDao.updatePasswordByLogin(login, password);
             return registeredUser;
-        } catch (DAOException | IncorrectSignInParametersException exp) {
+        } catch (DAOException exp) {
             throw new ServiceException(exp);
         }
 

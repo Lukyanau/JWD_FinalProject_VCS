@@ -1,33 +1,102 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:choose>
+    <c:when test="${not empty language}"> <fmt:setLocale value="${language}"/></c:when>
+    <c:when test="${empty language}"> <fmt:setLocale value="en"/></c:when>
+</c:choose>
+
+<fmt:setBundle basename="pagecontent.language"/>
 <html>
 <body>
-<nav class="navbar navbar-light navbar-expand-lg bg-dark py-lg-4" id="mainNav">
-    <div class="container"><a class="navbar-brand text-uppercase d-lg-none text-expanded" href="#">Brand</a><button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div
-                class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="nav navbar-nav mx-auto">
-                <c:if test="${not empty sessionUser}" >
-                    <c:if test="${sessionRole == 'USER'}">
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="controller?command=passing_home">HOME</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="controller?command=passing_about_us">ABOUT US</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="controller?command=passing_user_catalog">CATALOG</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="controller?command=log_out">LOG OUT</a></li>
+<div class="layout-header">
+    <div class="container">
+        <div class="layout-header__row">
+            <a href="RentCar?command=home_page" class="logo">
+                <div class="logo__subtitle"><fmt:message key="header.subtitle"/></div>
+                <fmt:message key="header.rent_name"/>
+            </a>
+            <div class="layout-header__menu">
+                <ul class="navigation">
+                    <c:if test="${not empty sessionUser}">
+                        <c:if test="${sessionRole == 'USER'}">
+                            <li class="navigation__item">
+                                <a href="RentCar?command=passing_about_us" class="navigation__link">
+                                    <fmt:message key="header.about"/>
+                                </a>
+                            </li>
+                            <li class="navigation__item">
+                                <a href="RentCar?command=passing_catalog" class="navigation__link">
+                                    <fmt:message key="header.catalog"/>
+                                </a>
+                            </li>
+                            <li class="navigation__item">
+                                <a href="RentCar?command=passing_user_profile" class="navigation__link">
+                                    <fmt:message key="header.account"/>
+                                </a>
+                            </li>
+                            <li class="navigation__item">
+                                <a href="RentCar?command=passing_make_deposit" class="navigation__link">
+                                    <fmt:message key="header.make_deposit"/>
+                                </a>
+                            </li>
+                        </c:if>
+                        <c:if test="${sessionRole == 'ADMIN'}">
+                            <li class="navigation__item">
+                                <a href="RentCar?command=passing_admin_catalog" class="navigation__link">
+                                    <fmt:message key="header.check_catalog"/>
+                                </a>
+                            </li>
+                            <li class="navigation__item">
+                                <a href="RentCar?command=passing_admin_add_car" class="navigation__link">
+                                    <fmt:message key="header.add_car"/>
+                                </a>
+                            </li>
+                            <li class="navigation__item">
+                                <a href="RentCar?command=passing_users_admin" class="navigation__link">
+                                    <fmt:message key="header.check_users"/>
+                                </a>
+                            </li>
+                        </c:if>
+                        <li class="navigation__item">
+                            <a href="RentCar?command=log_out" class="navigation__link">
+                                <fmt:message key="header.log_out"/>
+                            </a>
+                        </li>
                     </c:if>
-                    <c:if test="${sessionRole == 'ADMIN'}">
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="controller?command=passing_admin_add_car">ADD CAR</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="controller?command=passing_admin_catalog">CHECK CATALOG</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="controller?command=log_out">LOG OUT</a></li>
-                    </c:if>
-                    <c:if test = "${empty sessionUser}">
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="controller?command=passing_sign_in">SIGN IN</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="controller?command=passing_registration">SIGN UP</a></li>
-
-                    </c:if>
-                </c:if>
-            </ul>
+                </ul>
+                <div class="language-select">
+                    <div class="language-select__current">
+                        <span class="language-select__label">
+                             <c:choose>
+                                 <c:when test="${language eq 'ru'}"> <fmt:message key="header.language_ru"/></c:when>
+                                 <c:when test="${language eq 'en'}"> <fmt:message key="header.language_en"/></c:when>
+                                 <c:otherwise>
+                                     <fmt:message key="header.language_en"/>
+                                 </c:otherwise>
+                             </c:choose>
+                        </span>
+                        <span class="language-select__arrow"></span>
+                    </div>
+                    <div class="language-select__dropdown">
+                        <ul class="menu">
+                            <li>
+                                <a href="RentCar?command=change_language&language=ru"><span><fmt:message
+                                        key="header.language_ru"/></span></a>
+                            </li>
+                            <li>
+                                <a href="RentCar?command=change_language&language=en"><span><fmt:message
+                                        key="header.language_en"/></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <button class="burger burger-js"><span class="burger__line"></span>
+            </button>
         </div>
     </div>
-</nav>
+</div>
 </body>
 </html>

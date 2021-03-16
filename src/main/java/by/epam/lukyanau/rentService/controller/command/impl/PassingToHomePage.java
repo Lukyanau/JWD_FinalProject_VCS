@@ -1,6 +1,7 @@
 package by.epam.lukyanau.rentService.controller.command.impl;
 
 import by.epam.lukyanau.rentService.controller.command.Command;
+import by.epam.lukyanau.rentService.controller.command.PagePath;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,7 @@ import java.io.IOException;
 
 public class PassingToHomePage implements Command {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("jsp/mainHome.jsp");
-        requestDispatcher.forward(request, response);
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        return PagePath.PASSING_HOME;
     }
 }

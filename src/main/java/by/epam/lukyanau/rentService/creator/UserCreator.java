@@ -8,7 +8,6 @@ public class UserCreator {
     public static UserCreator instance = new UserCreator();
 
     private UserCreator() {
-
     }
 
     public static UserCreator getInstance() {
@@ -33,6 +32,4 @@ public class UserCreator {
                             String email, String phoneNumber, int roleId) {
         return new User(balance, userId, status, name, surname, login, email,phoneNumber, roleId);
     }
-
-
 }
