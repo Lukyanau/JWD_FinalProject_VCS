@@ -1,7 +1,6 @@
 package by.epam.lukyanau.rentService.dao;
 
 import by.epam.lukyanau.rentService.entity.Entity;
-import by.epam.lukyanau.rentService.exception.DAOException;
 
 import java.util.List;
 

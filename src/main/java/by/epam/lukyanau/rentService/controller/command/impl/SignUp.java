@@ -1,46 +1,43 @@
 package by.epam.lukyanau.rentService.controller.command.impl;
 
+import by.epam.lukyanau.rentService.controller.Router;
 import by.epam.lukyanau.rentService.controller.command.Command;
+import by.epam.lukyanau.rentService.controller.command.MessageAttribute;
 import by.epam.lukyanau.rentService.controller.command.PagePath;
-import by.epam.lukyanau.rentService.exception.IncorrectSignInParametersException;
-import by.epam.lukyanau.rentService.exception.LoginNotUniqueException;
-import by.epam.lukyanau.rentService.exception.PasswordNotConfirmedException;
-import by.epam.lukyanau.rentService.exception.ServiceException;
+import by.epam.lukyanau.rentService.service.exception.*;
 import by.epam.lukyanau.rentService.service.impl.UserServiceImpl;
+import by.epam.lukyanau.rentService.service.util.RequestParameterName;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 
 public class SignUp implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger();
+
     public UserServiceImpl userService = UserServiceImpl.getInstance();
 
-    public final static Logger LOGGER = LogManager.getLogger();
-
-
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String page;
+    public Router execute(HttpServletRequest request) {
+        Router router;
         try {
-            String name = request.getParameter("name");
-            String surname = request.getParameter("surname");
-            String login = request.getParameter("login");
-            String email = request.getParameter("email");
-            String phoneNumber = request.getParameter("phoneNumber");
-            String password = request.getParameter("password");
-            String confirmPassword = request.getParameter("password_confirmation");
+            String name = request.getParameter(RequestParameterName.NAME);
+            String surname = request.getParameter(RequestParameterName.SURNAME);
+            String login = request.getParameter(RequestParameterName.LOGIN);
+            String email = request.getParameter(RequestParameterName.EMAIL);
+            String phoneNumber = request.getParameter(RequestParameterName.PHONE_NUMBER);
+            String password = request.getParameter(RequestParameterName.PASSWORD);
+            String confirmPassword = request.getParameter(RequestParameterName.PASSWORD_CONFIRMATION);
             userService.signUpUser(name, surname, login, email, phoneNumber, password, confirmPassword);
-            page = PagePath.SIGN_IN;
+            router = new Router(PagePath.SIGN_IN);
         } catch (ServiceException exp) {
             LOGGER.error(exp);
-            page = PagePath.ERROR;
-        } catch (LoginNotUniqueException | PasswordNotConfirmedException | IncorrectSignInParametersException exp) {
-            page = PagePath.PASSING_REGISTRATION;
+            router = new Router(PagePath.ERROR_500);
+        } catch (LoginNotUniqueException | PasswordNotConfirmedException | IncorrectRegisterParametersException exp) {
+            router = new Router(PagePath.PASSING_REGISTRATION);
+            request.setAttribute(MessageAttribute.ERROR_MESSAGE, exp.getMessage());
         }
-        return page;
+        return router;
     }
 }

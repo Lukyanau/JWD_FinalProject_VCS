@@ -1,46 +1,53 @@
 package by.epam.lukyanau.rentService.controller.command.impl;
 
+import by.epam.lukyanau.rentService.controller.Router;
 import by.epam.lukyanau.rentService.controller.command.Command;
+import by.epam.lukyanau.rentService.controller.command.CommandName;
+import by.epam.lukyanau.rentService.controller.command.MessageAttribute;
 import by.epam.lukyanau.rentService.controller.command.PagePath;
 import by.epam.lukyanau.rentService.entity.User;
-import by.epam.lukyanau.rentService.exception.IncorrectSignInParametersException;
-import by.epam.lukyanau.rentService.exception.ServiceException;
+import by.epam.lukyanau.rentService.service.exception.IncorrectSignInParametersException;
+import by.epam.lukyanau.rentService.service.exception.ServiceException;
 import by.epam.lukyanau.rentService.service.impl.UserServiceImpl;
+import by.epam.lukyanau.rentService.service.util.RequestParameterName;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
+
 
 public class SignIn implements Command {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     public UserServiceImpl userService = UserServiceImpl.getInstance();
 
-    public final static Logger LOGGER = LogManager.getLogger();
-
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String page = null;
+    public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        Router router = new Router();
         try {
-            String login = request.getParameter("username");
-            String password = request.getParameter("password");
+            String login = request.getParameter(RequestParameterName.USERNAME);
+            String password = request.getParameter(RequestParameterName.PASSWORD);
+
             User currentUser = userService.signInUser(login, password);
             if (currentUser != null) {
                 User.Role currentRole = currentUser.getRole();
-                session.setAttribute("sessionUser", currentUser);
-                session.setAttribute("sessionRole", currentRole);
-                page = PagePath.PASSING_HOME;
+                session.setAttribute(MessageAttribute.USER, currentUser);
+                session.setAttribute(MessageAttribute.USER_ROLE, currentRole);
+                String redirectURL = createRedirectURL(request, CommandName.PASSING_HOME.toString().toLowerCase());
+                router.setRedirect();
+                router.setCurrentPage(redirectURL);
             }
         } catch (ServiceException exp) {
             LOGGER.error(exp);
-            page = PagePath.ERROR;
+            router = new Router(PagePath.ERROR_500);
         } catch (IncorrectSignInParametersException exp) {
-            page = PagePath.SIGN_IN;
-            request.setAttribute("errorMessage", "Incorrect login or password");
+            router = new Router(PagePath.SIGN_IN);
+            request.setAttribute(MessageAttribute.ERROR_MESSAGE, exp.getMessage());
         }
-        return page;
+        return router;
     }
 }

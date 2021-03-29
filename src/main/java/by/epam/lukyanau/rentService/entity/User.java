@@ -7,6 +7,7 @@ import java.util.Map;
 public class User extends Account {
 
     public enum Role{
+        GUEST(0),
         ADMIN(1),
         USER(2);
 
@@ -37,6 +38,7 @@ public class User extends Account {
     private String phoneNumber;
     private Role role;
 
+
     public User(String name, String surname, String login, String email, String phoneNumber, int roleId) {
         this.name = name;
         this.surname = surname;
@@ -55,7 +57,16 @@ public class User extends Account {
         this.role = Role.getRoleById(roleId);
     }
 
-    public User(BigDecimal balance, byte status, String name, String surname, String login, String email, String phoneNumber, int roleId) {
+    public User(boolean status, String name, String surname, String login, String email, String phoneNumber) {
+        super(status);
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public User(BigDecimal balance, boolean status, String name, String surname, String login, String email, String phoneNumber, int roleId) {
         super(balance, status);
         this.name = name;
         this.surname = surname;
@@ -65,7 +76,7 @@ public class User extends Account {
         this.role = Role.getRoleById(roleId);
     }
 
-    public User(BigDecimal balance, int userId, byte status, String name, String surname, String login, String email, String phoneNumber, int roleId) {
+    public User(BigDecimal balance, int userId, boolean status, String name, String surname, String login, String email, String phoneNumber, int roleId) {
         super(balance, userId, status);
         this.name = name;
         this.surname = surname;

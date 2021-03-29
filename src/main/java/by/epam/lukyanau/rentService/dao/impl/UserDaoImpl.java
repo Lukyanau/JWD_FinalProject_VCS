@@ -1,8 +1,8 @@
 package by.epam.lukyanau.rentService.dao.impl;
 
 import by.epam.lukyanau.rentService.connection.ConnectionPool;
-import by.epam.lukyanau.rentService.creator.UserCreator;
-import by.epam.lukyanau.rentService.exception.DAOException;
+import by.epam.lukyanau.rentService.service.creator.UserCreator;
+import by.epam.lukyanau.rentService.dao.DAOException;
 import by.epam.lukyanau.rentService.dao.SqlQuery;
 import by.epam.lukyanau.rentService.dao.UserDao;
 import by.epam.lukyanau.rentService.entity.User;
@@ -12,7 +12,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
 
@@ -68,18 +70,6 @@ public class UserDaoImpl implements UserDao {
         return userPassword;
     }
 
-    public void updatePasswordByLogin(String login, String password) throws DAOException {
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_PASSWORD_BY_LOGIN)) {
-            statement.setString(1, password);
-            statement.setString(2, login);
-            statement.executeUpdate();
-        } catch (SQLException exp) {
-            throw new DAOException(exp);
-        }
-    }
-
-
     @Override
     public User add(User user) throws DAOException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -104,7 +94,51 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findAll() throws DAOException {
-        return null;
+        UserCreator userCreator = UserCreator.getInstance();
+        List<User> allUsers = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_ALL_USERS)) {
+            statement.setInt(1, User.Role.USER.getRoleId());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String userName = resultSet.getString("name");
+                String userSurname = resultSet.getString("surname");
+                String userLogin = resultSet.getString("login");
+                String userEmail = resultSet.getString("email");
+                String userPhone = resultSet.getString("phone");
+                boolean userStatus = checkStatus(resultSet.getInt("id"));
+                User currentUser = userCreator.createUser(userStatus, userName, userSurname, userLogin, userEmail, userPhone);
+                allUsers.add(currentUser);
+            }
+        } catch (SQLException exp) {
+            throw new DAOException(exp);
+        }
+        return allUsers;
+    }
+
+    public boolean banAccount(String login) throws DAOException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.BAN_ACCOUNT_BY_LOGIN)) {
+            Optional<Integer> optionalUserId = findUserIdByLogin(login);
+            if (optionalUserId.isEmpty()) {
+                return false;
+            }
+            statement.setInt(1, optionalUserId.get());
+            return statement.executeUpdate() > 0;
+        } catch (SQLException exp) {
+            throw new DAOException(exp);
+        }
+    }
+
+    public void updatePasswordByLogin(String login, String password) throws DAOException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_PASSWORD_BY_LOGIN)) {
+            statement.setString(1, password);
+            statement.setString(2, login);
+            statement.executeUpdate();
+        } catch (SQLException exp) {
+            throw new DAOException(exp);
+        }
     }
 
     public void checkAccount(User user) throws DAOException {
@@ -130,6 +164,37 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException exp) {
             throw new DAOException(exp);
         }
+    }
+
+    private boolean checkStatus(int userId) throws DAOException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.CHECK_STATUS_BY_ID)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getInt("id_status") == 1) {
+                    return false;
+                }
+            }
+        } catch (SQLException exp) {
+            throw new DAOException(exp);
+        }
+        return true;
+    }
+
+    private Optional<Integer> findUserIdByLogin(String login) throws DAOException {
+        Optional<Integer> userId = Optional.empty();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_USER_ID_BY_LOGIN)) {
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                userId = Optional.of(resultSet.getInt("id"));
+            }
+        } catch (SQLException exp) {
+            throw new DAOException(exp);
+        }
+        return userId;
     }
 
 }

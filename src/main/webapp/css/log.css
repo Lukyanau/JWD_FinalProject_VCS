@@ -44,6 +44,22 @@
     cursor: pointer;
     margin: 5px;
 }
+.form .message {
+    font-family: 'Open Sans', sans-serif;
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+}
+
+.form .message a {
+    font-family: 'Open Sans', sans-serif;
+    color: #e84c3d;
+    text-decoration: none;
+}
+
+.form .register-form {
+    display: none;
+}
 
 button span {
     font-family: 'Open Sans', sans-serif;
@@ -88,25 +104,25 @@ button:hover span:after {
     display: none;
 }
 
-.container_log {
+.container {
     position: relative;
     z-index: 1;
     max-width: 300px;
     margin: 0 auto;
 }
 
-.container_log:before, .container_log:after {
+.container:before, .container:after {
     content: "";
     display: block;
     clear: both;
 }
 
-.container_log .info {
+.container .info {
     margin: 50px auto;
     text-align: center;
 }
 
-.container_log .info h1 {
+.container .info h1 {
     margin: 0 0 15px;
     padding: 0;
     font-size: 36px;
@@ -114,17 +130,17 @@ button:hover span:after {
     color: #1a1a1a;
 }
 
-.container_log .info span {
+.container .info span {
     color: #4d4d4d;
     font-size: 12px;
 }
 
-.container_log .info span a {
+.container .info span a {
     color: #000000;
     text-decoration: none;
 }
 
-.container_log .info span .fa {
+.container .info span .fa {
     color: #EF3B3A;
 }
 

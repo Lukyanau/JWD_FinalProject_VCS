@@ -8,6 +8,7 @@
 </c:choose>
 
 <fmt:setBundle basename="pagecontent.language"/>
+
 <html>
 <body>
 <div class="layout-footer">

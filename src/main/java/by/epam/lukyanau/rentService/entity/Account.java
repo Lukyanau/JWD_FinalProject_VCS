@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 public class Account extends Entity {
     private BigDecimal balance;
     private int userId;
-    private byte status;
+    private boolean status;
+
 
     public Account() {
     }
@@ -14,12 +15,21 @@ public class Account extends Entity {
         this.userId = userId;
     }
 
-    public Account(BigDecimal balance, byte status) {
+    public Account(boolean status) {
+        this.status = status;
+    }
+
+    public Account(BigDecimal balance, int userId) {
+        this.balance = balance;
+        this.userId = userId;
+    }
+
+    public Account(BigDecimal balance, boolean status) {
         this.balance = balance;
         this.status = status;
     }
 
-    public Account(BigDecimal balance, int userId, byte status) {
+    public Account(BigDecimal balance, int userId, boolean status) {
         this.balance = balance;
         this.userId = userId;
         this.status = status;
@@ -37,20 +47,21 @@ public class Account extends Entity {
         return userId;
     }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
-    public byte getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Account account = (Account) o;
@@ -64,15 +75,16 @@ public class Account extends Entity {
     public int hashCode() {
         int result = balance != null ? balance.hashCode() : 0;
         result = 31 * result + userId;
-        result = 31 * result + (int) status;
+        result = 31 * result + (status ? 1 : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "Account" +
-                " balance=" + balance +
+        return "Account{" +
+                "balance=" + balance +
                 ", userId=" + userId +
-                ", status=" + status;
+                ", status=" + status +
+                '}';
     }
 }

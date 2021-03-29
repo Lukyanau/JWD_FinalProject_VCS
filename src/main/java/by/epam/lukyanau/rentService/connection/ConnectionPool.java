@@ -27,7 +27,7 @@ public enum ConnectionPool{
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final Queue<ProxyConnection> busyConnections;
 
-    public final static Logger Logger = LogManager.getLogger();
+    static Logger LOGGER = LogManager.getLogger();
 
     ConnectionPool() {
         freeConnections = new LinkedBlockingQueue<>(DEFAULT_POOL_SIZE);
@@ -41,7 +41,7 @@ public enum ConnectionPool{
             proxyConnection = freeConnections.take();
             busyConnections.add(proxyConnection);
         } catch (InterruptedException exp) {
-            Logger.error("The connection isn't received", exp);
+            LOGGER.error("The connection isn't received", exp);
         }
         return proxyConnection;
     }
@@ -51,7 +51,7 @@ public enum ConnectionPool{
                 && busyConnections.remove(connection)) {
             freeConnections.offer((ProxyConnection) connection);
         } else {
-            Logger.error("Invalid connection type passed");
+            LOGGER.error("Invalid connection type passed");
         }
     }
 
@@ -60,7 +60,7 @@ public enum ConnectionPool{
             try {
                 freeConnections.take().reallyClose();
             } catch (SQLException | InterruptedException exp) {
-                Logger.error("The pool was not destroyed", exp);
+                LOGGER.error("The pool was not destroyed", exp);
             }
         }
         deregisterDrivers();
@@ -90,7 +90,7 @@ public enum ConnectionPool{
             try {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException exp) {
-                Logger.error("Error while deregister drivers", exp);
+                LOGGER.error("Error while deregister drivers", exp);
             }
         }
     }

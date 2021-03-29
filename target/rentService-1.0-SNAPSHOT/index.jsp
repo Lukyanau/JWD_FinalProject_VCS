@@ -10,7 +10,7 @@
 <head>
 </head>
 <body>
-<jsp:forward page="jsp/signIn.jsp"></jsp:forward>
+<jsp:forward page="RentCar?command=passing_home"></jsp:forward>
 </body>
 </html>
 

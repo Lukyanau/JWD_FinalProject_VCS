@@ -1,4 +1,6 @@
 package by.epam.lukyanau.rentService.dao;
 
-public interface CarDAO {
+import by.epam.lukyanau.rentService.entity.Car;
+
+public interface CarDAO extends BaseDAO<Car>{
 }

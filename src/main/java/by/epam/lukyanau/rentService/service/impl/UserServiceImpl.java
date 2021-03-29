@@ -1,17 +1,18 @@
 package by.epam.lukyanau.rentService.service.impl;
 
-import by.epam.lukyanau.rentService.creator.UserCreator;
-import by.epam.lukyanau.rentService.exception.*;
+import by.epam.lukyanau.rentService.dao.DAOException;
+import by.epam.lukyanau.rentService.service.creator.UserCreator;
+import by.epam.lukyanau.rentService.service.exception.*;
 import by.epam.lukyanau.rentService.dao.impl.UserDaoImpl;
 import by.epam.lukyanau.rentService.entity.User;
 import by.epam.lukyanau.rentService.service.UserService;
-import by.epam.lukyanau.rentService.validator.UserValidator;
+import by.epam.lukyanau.rentService.service.validator.UserValidator;
+
+import java.util.List;
 
 
 public class UserServiceImpl implements UserService {
     private static final UserServiceImpl instance = new UserServiceImpl();
-
-    private final UserDaoImpl userDao = UserDaoImpl.getInstance();
 
     private UserServiceImpl() {
 
@@ -22,7 +23,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllUsers() throws ServiceException {
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
+        List<User> allUsers;
+        try {
+             allUsers = userDao.findAll();
+        } catch (DAOException exp) {
+            throw new ServiceException(exp);
+        }
+        return allUsers;
+    }
+
+    @Override
     public User signInUser(String login, String password) throws ServiceException, IncorrectSignInParametersException {
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
         try {
             User signInUser = userDao.findByLogin(login);
             String userPassword = userDao.findPasswordByLogin(login);
@@ -40,10 +54,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User signUpUser(String name, String surname, String login, String email,
-                           String phoneNumber, String password, String confirmPassword) throws ServiceException, LoginNotUniqueException, PasswordNotConfirmedException, IncorrectSignInParametersException {
+                           String phoneNumber, String password, String confirmPassword) throws ServiceException,
+            LoginNotUniqueException, PasswordNotConfirmedException, IncorrectRegisterParametersException {
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
         UserCreator userCreator = UserCreator.getInstance();
         try {
-            UserValidator.checkSingUpParameters(name, surname, login, password, email, phoneNumber);
+            if (!UserValidator.checkSingUpParameters(name, surname, login, password, email, phoneNumber)) {
+                throw new IncorrectRegisterParametersException("Incorrect SignUp Parameters");
+            }
             checkLoginUnique(login);
             verifyPassword(password, confirmPassword);
             User createdUser = userCreator.createUser(name, surname, login, email, phoneNumber, User.Role.USER.getRoleId());
@@ -56,6 +74,18 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    public boolean banAccount(String login) throws ServiceException, NullUserException {
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
+        try {
+            boolean isBanned = userDao.banAccount(login);
+            if (!isBanned){
+                throw new NullUserException("There isn't user with this login");
+            }
+            return true;
+        } catch (DAOException exp) {
+            throw new ServiceException(exp);
+        }
+    }
 
     private void verifyPassword(String password, String confirmPassword) throws PasswordNotConfirmedException {
         if (!password.equals(confirmPassword)) {
@@ -64,6 +94,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void checkLoginUnique(String login) throws LoginNotUniqueException, ServiceException {
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
         try {
             User foundUser = userDao.findByLogin(login);
             if (foundUser != null) {
@@ -76,11 +107,12 @@ public class UserServiceImpl implements UserService {
 
 
     private void checkAccount(User user) throws ServiceException {
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
         try {
             if (user.getRole().getRoleId() == 2) {
                 userDao.checkAccount(user);
             }
-        }catch (DAOException exp){
+        } catch (DAOException exp) {
             throw new ServiceException(exp);
         }
     }

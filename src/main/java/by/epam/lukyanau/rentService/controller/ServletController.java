@@ -2,13 +2,18 @@ package by.epam.lukyanau.rentService.controller;
 
 import by.epam.lukyanau.rentService.connection.ConnectionPool;
 import by.epam.lukyanau.rentService.controller.command.Command;
+import by.epam.lukyanau.rentService.controller.command.CommandProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
+import static by.epam.lukyanau.rentService.service.util.RequestParameterName.*;
+
 @WebServlet("/controller")
 public class ServletController extends HttpServlet {
 
@@ -26,10 +31,21 @@ public class ServletController extends HttpServlet {
         process(request, response);
     }
 
-    private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void process(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         Command command = CommandProvider.provideCommand(request.getParameter("command"));
-        String page = command.execute(request,response);
-        request.getRequestDispatcher(page).forward(request, response);
+
+        Router router = command.execute(request);
+        String currentPage = router.getCurrentPage();
+        HttpSession session = request.getSession();
+
+        session.setAttribute(CURRENT_PAGE, currentPage);
+
+        if (router.getCurrentType().equals(Router.Type.FORWARD)) {
+            request.getRequestDispatcher(currentPage).forward(request, response);
+        } else {
+            response.sendRedirect(currentPage);
+        }
     }
 
     @Override

@@ -13,14 +13,14 @@
 <div class="layout-header">
     <div class="container">
         <div class="layout-header__row">
-            <a href="RentCar?command=home_page" class="logo">
+            <a href="RentCar?command=passing_home" class="logo">
                 <div class="logo__subtitle"><fmt:message key="header.subtitle"/></div>
                 <fmt:message key="header.rent_name"/>
             </a>
             <div class="layout-header__menu">
                 <ul class="navigation">
-                    <c:if test="${not empty sessionUser}">
-                        <c:if test="${sessionRole == 'USER'}">
+                    <c:if test="${not empty user}">
+                        <c:if test="${userRole == 'USER'}">
                             <li class="navigation__item">
                                 <a href="RentCar?command=passing_about_us" class="navigation__link">
                                     <fmt:message key="header.about"/>
@@ -42,15 +42,15 @@
                                 </a>
                             </li>
                         </c:if>
-                        <c:if test="${sessionRole == 'ADMIN'}">
+                        <c:if test="${userRole == 'ADMIN'}">
                             <li class="navigation__item">
                                 <a href="RentCar?command=passing_admin_catalog" class="navigation__link">
-                                    <fmt:message key="header.check_catalog"/>
+                                    <fmt:message key="header.check_orders"/>
                                 </a>
                             </li>
                             <li class="navigation__item">
-                                <a href="RentCar?command=passing_admin_add_car" class="navigation__link">
-                                    <fmt:message key="header.add_car"/>
+                                <a href="RentCar?command=passing_admin_cars" class="navigation__link">
+                                    <fmt:message key="header.cars"/>
                                 </a>
                             </li>
                             <li class="navigation__item">
@@ -62,6 +62,18 @@
                         <li class="navigation__item">
                             <a href="RentCar?command=log_out" class="navigation__link">
                                 <fmt:message key="header.log_out"/>
+                            </a>
+                        </li>
+                    </c:if>
+                    <c:if test="${empty user}">
+                        <li class="navigation__item">
+                            <a href="RentCar?command=passing_sign_in" class="navigation__link">
+                                <fmt:message key="header.sign_in"/>
+                            </a>
+                        </li>
+                        <li class="navigation__item">
+                            <a href="RentCar?command=passing_sign_up" class="navigation__link">
+                                <fmt:message key="header.sign_up"/>
                             </a>
                         </li>
                     </c:if>
@@ -82,12 +94,12 @@
                     <div class="language-select__dropdown">
                         <ul class="menu">
                             <li>
-                                <a href="RentCar?command=change_language&language=ru"><span><fmt:message
-                                        key="header.language_ru"/></span></a>
+                                <a href="RentCar?command=change_language&language=ru"><span>
+                                    <fmt:message key="header.language_ru"/></span></a>
                             </li>
                             <li>
-                                <a href="RentCar?command=change_language&language=en"><span><fmt:message
-                                        key="header.language_en"/></span></a>
+                                <a href="RentCar?command=change_language&language=en"><span>
+                                    <fmt:message key="header.language_en"/></span></a>
                             </li>
                         </ul>
                     </div>
