@@ -7,17 +7,21 @@ import by.epam.lukyanau.rentService.controller.command.PagePath;
 import by.epam.lukyanau.rentService.service.exception.NullUserException;
 import by.epam.lukyanau.rentService.service.exception.ServiceException;
 import by.epam.lukyanau.rentService.service.impl.UserServiceImpl;
+import by.epam.lukyanau.rentService.service.util.RequestParameterName;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public class BanAccount implements Command {
     UserServiceImpl userService = UserServiceImpl.getInstance();
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
     @Override
     public Router execute(HttpServletRequest request) {
         Router router;
-        String login = request.getParameter("login");
+        String login = request.getParameter(RequestParameterName.LOGIN);
         try {
             userService.banAccount(login);
             request.setAttribute(MessageAttribute.BAN_ACCOUNT, login);

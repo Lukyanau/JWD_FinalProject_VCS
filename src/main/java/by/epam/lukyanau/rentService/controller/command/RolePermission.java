@@ -21,6 +21,15 @@ public enum RolePermission {
             PASSING_HOME,
             CHANGE_LANGUAGE,
             PASSING_ERROR,
+            PASSING_CATALOG,
+            PASSING_USER_PROFILE,
+            SORT_CARS,
+            SORT_ORDERS,
+            FILTER_CARS,
+            MAKE_ORDER,
+            PAYMENT,
+            PASSING_PAYMENT_CARD,
+            MAKE_DEPOSIT,
             LOG_OUT
 
     )),
@@ -32,7 +41,16 @@ public enum RolePermission {
             PASSING_ERROR,
             ADD_CAR,
             PASSING_USERS_ADMIN,
+            PASSING_ADMIN_ORDERS,
             BAN_ACCOUNT,
+            UNBAN_ACCOUNT,
+            SORT_USERS,
+            SORT_CARS,
+            ACTIVATE_CAR,
+            DEACTIVATE_CAR,
+            DELETE_CAR,
+            APPROVE_ORDER,
+            SHOW_ALL_ORDERS,
             LOG_OUT
     ));
 

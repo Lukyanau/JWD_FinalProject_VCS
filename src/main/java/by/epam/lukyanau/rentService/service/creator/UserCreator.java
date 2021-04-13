@@ -19,8 +19,18 @@ public class UserCreator {
     }
 
     public User createUser(int userId, String name, String surname, String login, String email,
-                           String phoneNumber, int roleId) {
-        return new User(userId, name, surname, login, email, phoneNumber, roleId);
+                           String phoneNumber){
+        return new User(userId, name, surname, login, email, phoneNumber);
+    }
+
+    public User createUser(int userId, String name, String surname, String login, String email,
+                           String phoneNumber, int roleId, boolean status) {
+        return new User(userId, name, surname, login, email, phoneNumber, roleId, status);
+    }
+
+    public User createUser(BigDecimal accountBalance, int userId, String name, String surname, String login, String email,
+                           String phoneNumber, int roleId, boolean status) {
+        return new User(accountBalance, userId, name, surname, login, email, phoneNumber, roleId, status);
     }
 
     public User createUser(boolean status, String name, String surname, String login,
@@ -32,8 +42,8 @@ public class UserCreator {
         return new User(balance, status, name, surname, login, email, phoneNumber, roleId);
     }
 
-    public User createUser(BigDecimal balance, int userId, boolean status, String name, String surname, String login,
-                           String email, String phoneNumber, int roleId) {
-        return new User(balance, userId, status, name, surname, login, email, phoneNumber, roleId);
+    public User createUser(BigDecimal balance, int userId, String name, String surname, String login,
+                           String email, String phoneNumber) {
+        return new User(balance, userId, name, surname, login, email, phoneNumber);
     }
 }

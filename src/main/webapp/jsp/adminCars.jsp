@@ -27,8 +27,8 @@
 <div class="layout">
     <c:import url="${pageContext.request.contextPath}/jsp/header.jsp"/>
     <div class="layout-body"
-         style="background-image: url(${pageContext.request.contextPath}/images/texture.png); background-repeat: repeat;
-                 background-size: auto; background-attachment: fixed;">
+         style="background-image: url(${pageContext.request.contextPath}/images/notification.jpg);
+                 background-repeat: repeat; background-size: auto; background-attachment: fixed;">
         <div class="admin-section">
             <div class="container">
                 <div class="add-rooms-form">
@@ -76,7 +76,8 @@
                                 <div class="form-group">
                                     <span class="form-label"><fmt:message key="admin_cars.car_price"/></span>
                                     <input type="text" class="form-control" name="price"
-                                           placeholder=<fmt:message key="admin_cars.input_price"/> required
+                                           placeholder=
+                                           <fmt:message key="admin_cars.input_price"/> required
                                            pattern="^\d+\.?\d+$"
                                            oninvalid="this.setCustomValidity('<fmt:message
                                                    key="admin_cars.incorrect_price"/>')"
@@ -87,7 +88,8 @@
                                 <div class="form-group">
                                     <span class="form-label"><fmt:message key="admin_cars.car_description"/></span>
                                     <input type="text" class="form-control" name="description"
-                                           placeholder=<fmt:message key="admin_cars.input_description"/> required
+                                           placeholder=
+                                           <fmt:message key="admin_cars.input_description"/> required
                                            pattern="^[\w ]{5,25}$"
                                            oninvalid="this.setCustomValidity('<fmt:message
                                                    key="admin_cars.incorrect_description"/>')"
@@ -97,57 +99,65 @@
                             <div class="form__item">
                                 <div class="form-btn">
                                     <input type="hidden" name="command" value="add_car">
-                                    <button type="submit" class="submit-btn"><fmt:message
-                                            key="admin_cars.add_car"/></button>
+                                    <button type="submit" class="submit-btn">
+                                        <fmt:message key="admin_cars.add_car"/></button>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-<%--                <h2 class="admin-section__title"><fmt:message key="rooms_page.rooms"/></h2>--%>
-<%--                <div class="default-table-wrapper">--%>
-<%--                    <table class="default-table">--%>
-<%--                        <tr>--%>
-<%--                            <th><fmt:message key="rooms_page.number"/></th>--%>
-<%--                            <th><fmt:message key="rooms_page.type"/></th>--%>
-<%--                            <th><fmt:message key="rooms_page.places"/></th>--%>
-<%--                            <th><fmt:message key="rooms_page.price"/></th>--%>
-<%--                            <th>ACTIVE</th>--%>
-<%--                            <th class="default-table__sort">--%>
-<%--                                <span><fmt:message key="rooms_page.sort_by"/>:</span>--%>
-<%--                                <a href="DeluxeHotel?command=sort_rooms&type_sort=price"><fmt:message--%>
-<%--                                        key="rooms_page.price_type_sort"/></a>--%>
-<%--                                <a href="DeluxeHotel?command=sort_rooms&type_sort=place_amount"><fmt:message--%>
-<%--                                        key="rooms_page.places_type_sort"/></a>--%>
-<%--                            </th>--%>
-<%--                        </tr>--%>
-<%--                        <c:forEach var="room" items="${rooms}">--%>
-<%--                            <tr>--%>
-<%--                                <td>${room.getNumber()}</td>--%>
-<%--                                <td>${room.getComfort()}</td>--%>
-<%--                                <td>${room.getPlaceAmount()}</td>--%>
-<%--                                <td>${room.getPrice()}</td>--%>
-<%--                                <td>${room.isActive()}</td>--%>
-<%--                                <c:choose>--%>
-<%--                                    <c:when test="${room.isActive() == true}">--%>
-<%--                                        <td class="default-table__action">--%>
-<%--                                            <a href="DeluxeHotel?command=disable_room&roomNumber=${room.getNumber()}"--%>
-<%--                                               class="default-table__button default-table__button--red"><fmt:message--%>
-<%--                                                    key="rooms_page.disable_button"/></a>--%>
-<%--                                        </td>--%>
-<%--                                    </c:when>--%>
-<%--                                    <c:otherwise>--%>
-<%--                                        <td class="default-table__action">--%>
-<%--                                            <a href="DeluxeHotel?command=activate_room&roomNumber=${room.getNumber()}"--%>
-<%--                                               class="default-table__button default-table__button--green"><fmt:message--%>
-<%--                                                    key="rooms_page.activate_button"/></a>--%>
-<%--                                        </td>--%>
-<%--                                    </c:otherwise>--%>
-<%--                                </c:choose>--%>
-<%--                            </tr>--%>
-<%--                        </c:forEach>--%>
-<%--                    </table>--%>
-<%--                </div>--%>
+                <h2 class="admin-section__title"><fmt:message key="admin_cars.cars"/></h2>
+                <div class="default-table-wrapper">
+                    <table class="default-table">
+                        <tr>
+                            <th><fmt:message key="admin_cars.model"/></th>
+                            <th><fmt:message key="admin_cars.color"/></th>
+                            <th><fmt:message key="admin_cars.mark"/></th>
+                            <th><fmt:message key="admin_cars.description"/></th>
+                            <th><fmt:message key="admin_cars.price"/></th>
+                            <th><fmt:message key="admin_cars.status"/></th>
+                            <th class="default-table__sort">
+                                <span><fmt:message key="admin_cars.sort_by"/>:</span>
+                                <a href="RentCar?command=sort_cars&sort_type=price">
+                                    <fmt:message key="admin_cars.price_type_sort"/></a>
+                                <a href="RentCar?command=sort_cars&sort_type=model">
+                                    <fmt:message key="admin_cars.model_type_sort"/></a>
+                            </th>
+                            <th><fmt:message key="admin_cars.deleting"/></th>
+                        </tr>
+                        <c:forEach var="car" items="${cars}">
+                            <tr>
+                                <td>${car.getModel()}</td>
+                                <td>${car.getColor()}</td>
+                                <td>${car.getMark()}</td>
+                                <td>${car.getDescription()}</td>
+                                <td>${car.getPrice()}</td>
+                                <td>${car.isStatus()}</td>
+                                <c:choose>
+                                    <c:when test="${car.isStatus() == true}">
+                                        <td class="default-table__action">
+                                            <a href="RentCar?command=deactivate_car&carId=${car.getCarId()}"
+                                               class="default-table__button default-table__button--red">
+                                                <fmt:message key="admin_cars.disable_button"/></a>
+                                        </td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td class="default-table__action">
+                                            <a href="RentCar?command=activate_car&carId=${car.getCarId()}"
+                                               class="default-table__button default-table__button--green">
+                                                <fmt:message key="admin_cars.activate_button"/></a>
+                                        </td>
+                                    </c:otherwise>
+                                </c:choose>
+                                <td class="default-table__action">
+                                    <a href="RentCar?command=delete_car&carId=${car.getCarId()}"
+                                       class="default-table__button default-table__button--red">
+                                        <fmt:message key="admin_cars.delete_button"/></a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

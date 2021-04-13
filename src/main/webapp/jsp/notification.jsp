@@ -24,8 +24,7 @@
 <div class="layout">
     <c:import url="${pageContext.request.contextPath}/jsp/header.jsp"/>
     <div class="layout-body"
-         style="background-image: url(${pageContext.request.contextPath}/images/home.jpg);
-                 background-repeat: repeat; background-size: auto; background-attachment: fixed;">
+         style="background-image: url(${pageContext.request.contextPath}/images/home.jpg);">
         <div class="notification">
             <h3 class="notification__title"><fmt:message key="notification_page.subtitle"/></h3>
             <c:choose>
@@ -39,6 +38,65 @@
                     <p class="notification__text">
                         <fmt:message key="notification_page.user_with_login"/> ${banAccount} <fmt:message
                             key="notification_page.was_successfully_banned"/>
+                    </p>
+                </c:when>
+                <c:when test="${ not empty unbanAccount}">
+                    <p class="notification__text">
+                        <fmt:message key="notification_page.user_with_login"/> ${unbanAccount} <fmt:message
+                            key="notification_page.was_successfully_unbanned"/>
+                    </p>
+                </c:when>
+                <c:when test="${ not empty bannedAccount}">
+                    <p class="notification__text">
+                        <fmt:message key="notification_page.account_banned"/> ${bannedAccount} <fmt:message
+                            key="notification_page.was_banned"/>
+                    </p>
+                </c:when>
+                <c:when test="${ not empty activateCar}">
+                    <p class="notification__text">
+                        <fmt:message key="notification_page.car_with_id"/> ${activateCar} <fmt:message
+                            key="notification_page.was_successfully_activated"/>
+                    </p>
+                </c:when>
+                <c:when test="${ not empty deactivateCar}">
+                    <p class="notification__text">
+                        <fmt:message key="notification_page.car_with_id"/> ${deactivateCar} <fmt:message
+                            key="notification_page.was_successfully_deactivated"/>
+                    </p>
+                </c:when>
+                <c:when test="${ not empty orderCar}">
+                    <p class="notification__text">
+                        <fmt:message key="notification_page.car_with_model"/> ${orderCar} <fmt:message
+                            key="notification_page.was_successfully_ordered"/>
+                    </p>
+                </c:when>
+                <c:when test="${ not empty deleteCar}">
+                    <p class="notification__text">
+                        <fmt:message key="notification_page.car_with_id"/> ${deleteCar} <fmt:message
+                            key="notification_page.was_successfully_deleted"/>
+                    </p>
+                </c:when>
+                <c:when test="${ not empty approveOrderId}">
+                    <p class="notification__text">
+                        <fmt:message key="notification_page.order_with_id"/> ${approveOrderId} <fmt:message
+                            key="notification_page.was_successfully_approved"/>
+                    </p>
+                </c:when>
+                <c:when test="${ not empty rejectOrderId}">
+                    <p class="notification__text">
+                        <fmt:message key="notification_page.order_with_id"/> ${rejectOrderId} <fmt:message
+                            key="notification_page.was_successfully_approved"/>
+                    </p>
+                </c:when>
+                <c:when test="${not empty paymentMessage}">
+                    <p class="notification__text">
+                        <fmt:message key="notification_page.your_order"/> # ${paymentMessage} <fmt:message
+                            key="notification_page.successfully_paid"/>
+                    </p>
+                </c:when>
+                <c:when test="${not empty depositMessage}">
+                    <p class="notification__text">
+                        <fmt:message key="notification_page.successfully_credited"/> ${depositMessage}$
                     </p>
                 </c:when>
 

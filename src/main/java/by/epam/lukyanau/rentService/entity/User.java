@@ -47,8 +47,30 @@ public class User extends Account {
         this.phoneNumber = phoneNumber;
         this.role = Role.getRoleById(roleId);
     }
-    public User(int userId, String name, String surname, String login, String email, String phoneNumber, int roleId) {
+
+    public User(int userId, String name, String surname, String login, String email, String phoneNumber){
         super(userId);
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public User(int userId, String name, String surname, String login, String email, String phoneNumber, int roleId,
+                boolean status) {
+        super(userId, status);
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.role = Role.getRoleById(roleId);
+    }
+
+    public User(BigDecimal accountBalance, int userId, String name, String surname, String login, String email, String phoneNumber, int roleId,
+                boolean status) {
+        super(accountBalance, userId, status);
         this.name = name;
         this.surname = surname;
         this.login = login;
@@ -76,14 +98,13 @@ public class User extends Account {
         this.role = Role.getRoleById(roleId);
     }
 
-    public User(BigDecimal balance, int userId, boolean status, String name, String surname, String login, String email, String phoneNumber, int roleId) {
-        super(balance, userId, status);
+    public User(BigDecimal balance, int userId, String name, String surname, String login, String email, String phoneNumber) {
+        super(balance, userId);
         this.name = name;
         this.surname = surname;
         this.login = login;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.role = Role.getRoleById(roleId);
     }
 
     public String getName() {

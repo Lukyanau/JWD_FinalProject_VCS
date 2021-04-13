@@ -8,6 +8,10 @@ public class CarValidator {
     private static final int MIN_CAR_PRICE = 100;
     private static final int MAX_CAR_PRICE = 1000;
 
+    public static boolean CheckAddCarParameters(String color, String model, String price, String description) {
+        return CheckColor(color) && CheckModel(model) && CheckPrice(price) && CheckDescription(description);
+    }
+
     private static boolean CheckColor(String color) {
         return isEmptyOrNull(color) && color.matches(COLOR_REGEX);
     }
@@ -28,10 +32,6 @@ public class CarValidator {
 
     private static boolean CheckDescription(String description) {
         return isEmptyOrNull(description) && description.matches(DESCRIPTION_REGEX);
-    }
-
-    public static boolean CheckAddCarParameters(String color, String model, String price, String description) {
-        return CheckColor(color) && CheckModel(model) && CheckPrice(price) && CheckDescription(description);
     }
 
     private static boolean isEmptyOrNull(String str) {

@@ -19,5 +19,11 @@ public class CarCreator {
     public Car createCar(String color, int markId, String model, Integer price, String description) {
         return new Car(color, model, BigDecimal.valueOf(price), description, markId);
     }
+    public Car createCar(int carId, String color, String model, BigDecimal price, String description, String mark, boolean status) {
+        return new Car(carId, color, model, price, description, mark, status);
+    }
+    public Car createCar(int carId, String color, String model, BigDecimal price, String mark) {
+        return new Car(carId, color, model, price, mark);
+    }
 
 }

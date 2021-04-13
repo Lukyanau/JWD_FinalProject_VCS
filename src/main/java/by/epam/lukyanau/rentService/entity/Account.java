@@ -15,6 +15,11 @@ public class Account extends Entity {
         this.userId = userId;
     }
 
+    public Account(int userId, boolean status) {
+        this.userId = userId;
+        this.status = status;
+    }
+
     public Account(boolean status) {
         this.status = status;
     }

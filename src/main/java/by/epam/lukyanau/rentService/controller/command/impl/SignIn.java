@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 
 public class SignIn implements Command {
@@ -32,10 +33,16 @@ public class SignIn implements Command {
             String login = request.getParameter(RequestParameterName.USERNAME);
             String password = request.getParameter(RequestParameterName.PASSWORD);
 
-            User currentUser = userService.signInUser(login, password);
-            if (currentUser != null) {
-                User.Role currentRole = currentUser.getRole();
-                session.setAttribute(MessageAttribute.USER, currentUser);
+            Optional<User> currentUser = userService.signInUser(login, password);
+            if (currentUser.isPresent()) {
+                User user = currentUser.get();
+                if (user.getRole().equals(User.Role.USER) && user.isStatus()) {
+                    request.setAttribute(MessageAttribute.BANNED_ACCOUNT, login);
+                    router = new Router(PagePath.NOTIFICATION);
+                    return router;
+                }
+                User.Role currentRole = user.getRole();
+                session.setAttribute(MessageAttribute.USER, user);
                 session.setAttribute(MessageAttribute.USER_ROLE, currentRole);
                 String redirectURL = createRedirectURL(request, CommandName.PASSING_HOME.toString().toLowerCase());
                 router.setRedirect();

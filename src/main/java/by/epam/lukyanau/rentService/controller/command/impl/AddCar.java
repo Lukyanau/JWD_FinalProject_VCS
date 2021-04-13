@@ -32,7 +32,7 @@ public class AddCar implements Command {
             request.setAttribute(MessageAttribute.ADD_CAR, carMark + " " + carModel);
             router = new Router(PagePath.NOTIFICATION);
         } catch (IncorrectAddCarException exp) {
-            router = new Router(PagePath.PASSING_ADMIN_CAR);
+            router = new Router(PagePath.PASSING_ADMIN_CARS);
             request.setAttribute(MessageAttribute.ERROR_MESSAGE, exp.getMessage());
         } catch (ServiceException exp) {
             LOGGER.error(exp);

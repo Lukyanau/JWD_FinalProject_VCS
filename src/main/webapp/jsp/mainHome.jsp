@@ -68,25 +68,24 @@
                 <div class="advantages-grid__inner">
                     <div class="advantages-grid__item">
                         <div class="advantages-grid__icon">
-                            <img src="${pageContext.request.contextPath}/images/room-service.png" alt="Room service">
+                            <img src="${pageContext.request.contextPath}/images/car.png" alt="Best Cars">
                         </div>
-                        <div class="advantages-grid__title"><fmt:message key="main_page.promise_room_service"/></div>
-                        <div class="advantages-grid__details"><fmt:message
-                                key="main_page.promise_room_service_text"/></div>
+                        <div class="advantages-grid__title"><fmt:message key="main_page.promise_best_cars"/></div>
+                        <div class="advantages-grid__details"><fmt:message key="main_page.promise_best_cars_text"/></div>
                     </div>
                     <div class="advantages-grid__item">
                         <div class="advantages-grid__icon">
-                            <img src="${pageContext.request.contextPath}/images/wi-fi.png" alt="Wi-fi">
+                            <img src="${pageContext.request.contextPath}/images/documents.png" alt="Documents">
                         </div>
-                        <div class="advantages-grid__title"><fmt:message key="main_page.promise_wifi"/></div>
-                        <div class="advantages-grid__details"><fmt:message key="main_page.promise_wifi_text"/></div>
+                        <div class="advantages-grid__title"><fmt:message key="main_page.promise_documents"/></div>
+                        <div class="advantages-grid__details"><fmt:message key="main_page.promise_documents_text"/></div>
                     </div>
                     <div class="advantages-grid__item">
                         <div class="advantages-grid__icon">
-                            <img src="${pageContext.request.contextPath}/images/mask.png" alt="Covid">
+                            <img src="${pageContext.request.contextPath}/images/picture.png" alt="Picture">
                         </div>
-                        <div class="advantages-grid__title"><fmt:message key="main_page.promise_covid"/></div>
-                        <div class="advantages-grid__details"><fmt:message key="main_page.promise_covid_text"/></div>
+                        <div class="advantages-grid__title"><fmt:message key="main_page.promise_free_picture"/></div>
+                        <div class="advantages-grid__details"><fmt:message key="main_page.promise_free_picture_text"/></div>
                     </div>
                 </div>
             </div>

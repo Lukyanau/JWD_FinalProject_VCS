@@ -13,6 +13,6 @@ public class LogOut implements Command {
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
-        return new Router(PagePath.SIGN_IN);
+        return new Router(PagePath.PASSING_HOME);
     }
 }

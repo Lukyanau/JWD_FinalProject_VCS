@@ -1,14 +1,18 @@
 package by.epam.lukyanau.rentService.service.impl;
 
-import by.epam.lukyanau.rentService.dao.DAOException;
+import by.epam.lukyanau.rentService.dao.DaoException;
 import by.epam.lukyanau.rentService.service.creator.UserCreator;
 import by.epam.lukyanau.rentService.service.exception.*;
 import by.epam.lukyanau.rentService.dao.impl.UserDaoImpl;
 import by.epam.lukyanau.rentService.entity.User;
 import by.epam.lukyanau.rentService.service.UserService;
+import by.epam.lukyanau.rentService.service.util.comparator.UserLoginComparator;
+import by.epam.lukyanau.rentService.service.util.comparator.UserNameComparator;
 import by.epam.lukyanau.rentService.service.validator.UserValidator;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class UserServiceImpl implements UserService {
@@ -27,26 +31,26 @@ public class UserServiceImpl implements UserService {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         List<User> allUsers;
         try {
-             allUsers = userDao.findAll();
-        } catch (DAOException exp) {
+            allUsers = userDao.findAll();
+        } catch (DaoException exp) {
             throw new ServiceException(exp);
         }
         return allUsers;
     }
 
     @Override
-    public User signInUser(String login, String password) throws ServiceException, IncorrectSignInParametersException {
+    public Optional<User> signInUser(String login, String password) throws ServiceException, IncorrectSignInParametersException {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         try {
-            User signInUser = userDao.findByLogin(login);
+            Optional<User> signInUser = userDao.findByLogin(login);
             String userPassword = userDao.findPasswordByLogin(login);
-            if (password.equals(userPassword)) {
-                checkAccount(signInUser);
+            if (password.equals(userPassword) && signInUser.isPresent()) {
+                checkAccount(signInUser.get());
                 return signInUser;
             } else {
                 throw new IncorrectSignInParametersException("Incorrect sign in parameters");
             }
-        } catch (DAOException exp) {
+        } catch (DaoException exp) {
             throw new ServiceException(exp);
         }
     }
@@ -68,21 +72,88 @@ public class UserServiceImpl implements UserService {
             User registeredUser = userDao.add(createdUser);
             userDao.updatePasswordByLogin(login, password);
             return registeredUser;
-        } catch (DAOException exp) {
+        } catch (DaoException exp) {
             throw new ServiceException(exp);
         }
 
+    }
+
+    public boolean depositMoney(String login, double sum) throws ServiceException {
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
+        boolean isMadeDeposit = false;
+        try {
+            Optional<User> userOptional = userDao.findByLogin(login);
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                double currentBalance = user.getBalance().doubleValue();
+                double newBalance = currentBalance + sum;
+                userDao.updateBalanceByLogin(login, newBalance);
+                isMadeDeposit = true;
+            }
+        } catch (DaoException exp) {
+            throw new ServiceException("Error during deposit money", exp);
+        }
+        return isMadeDeposit;
+    }
+
+    public boolean paymentBooking(User user, double bookingPrice) throws ServiceException {
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
+        double userBalance = user.getBalance().doubleValue();
+        boolean isPayment = false;
+        try {
+            if (Double.compare(userBalance, bookingPrice) >= 0) {
+                double resultBalance = userBalance - bookingPrice;
+                userDao.updateBalanceByLogin(user.getLogin(), resultBalance);
+                isPayment = true;
+            }
+        } catch (DaoException exp) {
+            throw new ServiceException("Error during payment booking", exp);
+        }
+        return isPayment;
+    }
+
+    public Optional<User> findUserById(int id) throws ServiceException {
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
+        try {
+            return userDao.findById(id);
+        } catch (DaoException exp) {
+            throw new ServiceException("Error during find user by id", exp);
+        }
+    }
+
+    public List<User> sortUsers(List<User> allUsers, String sortType) {
+        UserNameComparator nameComparator = UserNameComparator.getInstance();
+        UserLoginComparator loginComparator = UserLoginComparator.getInstance();
+        List<User> sortedUsers = new ArrayList<>(allUsers);
+        switch (sortType) {
+            case "name" -> sortedUsers.sort(nameComparator);
+            case "login" -> sortedUsers.sort(loginComparator);
+        }
+        return sortedUsers;
     }
 
     public boolean banAccount(String login) throws ServiceException, NullUserException {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         try {
             boolean isBanned = userDao.banAccount(login);
-            if (!isBanned){
+            if (!isBanned) {
                 throw new NullUserException("There isn't user with this login");
             }
             return true;
-        } catch (DAOException exp) {
+        } catch (DaoException exp) {
+            throw new ServiceException(exp);
+        }
+    }
+
+    public boolean unbanAccount(String login) throws ServiceException, NullUserException {
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
+        try {
+            boolean isBanned = userDao.unbanAccount(login);
+            if (!isBanned) {
+                throw new NullUserException("There isn't user with this login");
+            }
+            return true;
+        } catch (DaoException exp) {
             throw new ServiceException(exp);
         }
     }
@@ -96,11 +167,11 @@ public class UserServiceImpl implements UserService {
     private void checkLoginUnique(String login) throws LoginNotUniqueException, ServiceException {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         try {
-            User foundUser = userDao.findByLogin(login);
-            if (foundUser != null) {
+            Optional<User> foundUser = userDao.findByLogin(login);
+            if (foundUser.isPresent()) {
                 throw new LoginNotUniqueException("Login is already in use.");
             }
-        } catch (DAOException exp) {
+        } catch (DaoException exp) {
             throw new ServiceException(exp);
         }
     }
@@ -112,7 +183,7 @@ public class UserServiceImpl implements UserService {
             if (user.getRole().getRoleId() == 2) {
                 userDao.checkAccount(user);
             }
-        } catch (DAOException exp) {
+        } catch (DaoException exp) {
             throw new ServiceException(exp);
         }
     }
