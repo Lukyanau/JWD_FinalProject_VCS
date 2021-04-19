@@ -44,7 +44,7 @@
                             </c:when>
                             <c:when test="${not empty user}">
                                 <c:if test="${userRole != 'ADMIN'}">
-                                    <a href="RentCar?command=passing_filter_rooms"
+                                    <a href="RentCar?command=passing_catalog"
                                        class="hotel-info__button"><fmt:message
                                             key="main_page.business_card_button"/></a>
                                 </c:if>

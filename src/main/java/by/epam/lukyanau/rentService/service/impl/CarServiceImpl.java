@@ -42,14 +42,14 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car addCar(String color, String mark, String model, Integer price, String description) throws IncorrectAddCarException, ServiceException {
+    public Car addCar(String color, String mark, String model, Integer price, String description)
+            throws IncorrectAddCarException, ServiceException {
         CarCreator carCreator = CarCreator.getInstance();
         CarDaoImpl carDao = CarDaoImpl.getInstance();
-        if (!CarValidator.CheckAddCarParameters(color, model, price.toString(), description)) {
+        if (!CarValidator.checkAddCarParameters(color, model, price.toString(), description)) {
             throw new IncorrectAddCarException("Add car parameters is incorrect!!!");
         }
         try {
-
             int markId = findMarkId(mark);
             Car createdCar = carCreator.createCar(color, markId, model, price, description);
             Car addedCar = carDao.add(createdCar);

@@ -19,7 +19,7 @@
     <title><fmt:message key="payment_card.title"/></title>
 
 </head>
-<body background="${pageContext.request.contextPath}/images/notification.jpg" style="background-repeat: no-repeat">
+<body background="${pageContext.request.contextPath}/images/home.jpg" style="background-repeat: no-repeat">
 <div class="login-page">
     <c:import url="${pageContext.request.contextPath}/jsp/header.jsp"/>
     <div class="form">

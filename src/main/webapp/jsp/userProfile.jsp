@@ -54,8 +54,8 @@
                             <c:when test="${not empty personalOrders}">
                                 <tr>
                                     <th><fmt:message key="user_profile.order_number"/> №</th>
-                                    <th><fmt:message key="user_profile.car_mark"/> №</th>
-                                    <th><fmt:message key="user_profile.car_model"/> №</th>
+                                    <th><fmt:message key="user_profile.car_mark"/> </th>
+                                    <th><fmt:message key="user_profile.car_model"/> </th>
                                     <th><fmt:message key="user_profile.date_from"/></th>
                                     <th><fmt:message key="user_profile.date_to"/></th>
                                     <th><fmt:message key="user_profile.price"/></th>

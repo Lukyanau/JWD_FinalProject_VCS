@@ -1,8 +1,5 @@
 package by.epam.lukyanau.rentService.service.validator;
 
-import by.epam.lukyanau.rentService.service.exception.IncorrectRegisterParametersException;
-import by.epam.lukyanau.rentService.service.exception.IncorrectSignInParametersException;
-
 public class UserValidator {
     private UserValidator() {
 
@@ -12,7 +9,7 @@ public class UserValidator {
     private static final String PASSWORD_REGEX = "^.{3,20}$";
     private static final String NAME_REGEX = "^[a-zA-Z]{3,20}$";
     private static final String SURNAME_REGEX = "^[a-zA-Z]{3,20}$";
-    private static final String EMAIL_REGEX = "^[a-zA-Z]{3,20}$";
+    private static final String EMAIL_REGEX = "^[a-zA-z0-9_.-]{1,35}@[a-zA-z0-9_-]{2,15}\\.[a-z]{2,5}$";
     private static final String PHONE_REGEX = "^(\\+375\\([\\d]{2}\\)[\\d]{3}\\-[\\d]{2}\\-[\\d]{2})$";
 
 

@@ -39,7 +39,7 @@ public class Payment implements Command {
             if (foundOrder.isPresent() && foundOrder.get().getStatus() == Order.Status.PAYMENT) {
                 Order order = foundOrder.get();
                 double totalPriceOrder = order.getTotalPrice();
-                if (userService.paymentBooking(currentUser, totalPriceOrder)) {
+                if (userService.paymentOrdering(currentUser, totalPriceOrder)) {
                     orderService.updateOrderStatus(idOrder, Order.Status.ACTIVE.getNameStatus());
                     request.setAttribute(MessageAttribute.PAYMENT_MESSAGE, order.getOrderId());
                     router = new Router(PagePath.NOTIFICATION);

@@ -33,30 +33,42 @@
                                 <div class="form-group">
                                     <input type="text" name="name" id="name" class="form-control input-sm"
                                            placeholder=
-                                    <fmt:message key="sign_up_page.name"/>>
+                                           <fmt:message key="sign_up_page.name"/> required pattern="^[a-zA-Z]{3,20}$"
+                                           oninvalid="this.setCustomValidity('<fmt:message key="sign_up_page.invalid_name"/>')"
+                                           onchange="this.setCustomValidity('')" value="${signUpData['name']}"/>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <input type="text" name="surname" id="surname" class="form-control input-sm"
                                            placeholder=
-                                    <fmt:message key="sign_up_page.surname"/>>
+                                           <fmt:message key="sign_up_page.surname"/> required pattern="^[a-zA-Z]{3,20}$"
+                                           oninvalid="this.setCustomValidity('<fmt:message key="sign_up_page.invalid_surname"/>')"
+                                           onchange="this.setCustomValidity('')" value="${signUpData['surname']}"/>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <input type="text" name="email" id="email" class="form-control input-sm"
                                    placeholder=
-                            <fmt:message key="sign_up_page.email"/>>
+                                   <fmt:message key="sign_up_page.email"/> required
+                                   pattern="^[a-zA-z0-9_.-]{1,35}@[a-zA-z0-9_-]{2,15}\.[a-z]{2,5}$"
+                                   oninvalid="this.setCustomValidity('<fmt:message key="sign_up_page.invalid_email"/>')"
+                                   onchange="this.setCustomValidity('')" value="${signUpData['email']}"/>
                         </div>
                         <div class="form-group">
                             <input type="text" name="phoneNumber" id="phoneNumber" class="form-control input-sm"
-                                   placeholder="+375(xx)xxx-xx-xx">
+                                   placeholder="+375(xx)xxx-xx-xx" required
+                                   pattern="^(\+375\([\d]{2}\)[\d]{3}\-[\d]{2}\-[\d]{2})$"
+                                   oninvalid="this.setCustomValidity('<fmt:message key="sign_up_page.invalid_phone"/>')"
+                                   onchange="this.setCustomValidity('')" value="${signUpData['phone']}"/>
                         </div>
                         <div class="form-group">
                             <input type="text" name="login" id="login" class="form-control input-sm"
                                    placeholder=
-                            <fmt:message key="sign_up_page.login"/>>
+                                   <fmt:message key="sign_up_page.login"/> required pattern="^[a-zA-Z0-9_]{3,20}$"
+                                   oninvalid="this.setCustomValidity('<fmt:message key="sign_up_page.invalid_login"/>')"
+                                   onchange="this.setCustomValidity('')" value="${signUpData['login']}"/>
                         </div>
 
                         <div class="row">
@@ -64,14 +76,18 @@
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" class="form-control input-sm"
                                            placeholder=
-                                    <fmt:message key="sign_up_page.password"/>>
+                                    <fmt:message key="sign_up_page.password"/> required pattern="^.{3,20}$"
+                                           oninvalid="this.setCustomValidity('<fmt:message key="sign_up_page.invalid_password"/>')"
+                                           onchange="this.setCustomValidity('')" value="${signUpData['password']}"/>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <input type="password" name="password_confirmation" id="password_confirmation"
                                            class="form-control input-sm" placeholder=
-                                    <fmt:message key="sign_up_page.password_confirmation"/>>
+                                    <fmt:message key="sign_up_page.password_confirmation"/> required pattern="^.{3,20}$"
+                                           oninvalid="this.setCustomValidity('<fmt:message key="sign_up_page.invalid_password"/>')"
+                                           onchange="this.setCustomValidity('')" value="${signUpData['password_confirmation']}"/>
                                 </div>
                             </div>
                         </div>

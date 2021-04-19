@@ -87,8 +87,7 @@ public class UserServiceImpl implements UserService {
                 User user = userOptional.get();
                 double currentBalance = user.getBalance().doubleValue();
                 double newBalance = currentBalance + sum;
-                userDao.updateBalanceByLogin(login, newBalance);
-                isMadeDeposit = true;
+                isMadeDeposit = userDao.updateBalanceByLogin(login, newBalance);
             }
         } catch (DaoException exp) {
             throw new ServiceException("Error during deposit money", exp);
@@ -96,15 +95,14 @@ public class UserServiceImpl implements UserService {
         return isMadeDeposit;
     }
 
-    public boolean paymentBooking(User user, double bookingPrice) throws ServiceException {
+    public boolean paymentOrdering(User user, double orderingPrice) throws ServiceException {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         double userBalance = user.getBalance().doubleValue();
         boolean isPayment = false;
         try {
-            if (Double.compare(userBalance, bookingPrice) >= 0) {
-                double resultBalance = userBalance - bookingPrice;
-                userDao.updateBalanceByLogin(user.getLogin(), resultBalance);
-                isPayment = true;
+            if (Double.compare(userBalance, orderingPrice) >= 0) {
+                double resultBalance = userBalance - orderingPrice;
+                isPayment = userDao.updateBalanceByLogin(user.getLogin(), resultBalance);
             }
         } catch (DaoException exp) {
             throw new ServiceException("Error during payment booking", exp);
