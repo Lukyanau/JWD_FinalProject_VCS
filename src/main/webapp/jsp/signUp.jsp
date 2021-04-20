@@ -76,7 +76,7 @@
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" class="form-control input-sm"
                                            placeholder=
-                                    <fmt:message key="sign_up_page.password"/> required pattern="^.{3,20}$"
+                                           <fmt:message key="sign_up_page.password"/> required pattern="^.{3,20}$"
                                            oninvalid="this.setCustomValidity('<fmt:message key="sign_up_page.invalid_password"/>')"
                                            onchange="this.setCustomValidity('')" value="${signUpData['password']}"/>
                                 </div>
@@ -85,7 +85,7 @@
                                 <div class="form-group">
                                     <input type="password" name="password_confirmation" id="password_confirmation"
                                            class="form-control input-sm" placeholder=
-                                    <fmt:message key="sign_up_page.password_confirmation"/> required pattern="^.{3,20}$"
+                                           <fmt:message key="sign_up_page.password_confirmation"/> required pattern="^.{3,20}$"
                                            oninvalid="this.setCustomValidity('<fmt:message key="sign_up_page.invalid_password"/>')"
                                            onchange="this.setCustomValidity('')" value="${signUpData['password_confirmation']}"/>
                                 </div>

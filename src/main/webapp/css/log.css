@@ -44,22 +44,6 @@
     cursor: pointer;
     margin: 5px;
 }
-.form .message {
-    font-family: 'Open Sans', sans-serif;
-    margin: 15px 0 0;
-    color: #b3b3b3;
-    font-size: 12px;
-}
-
-.form .message a {
-    font-family: 'Open Sans', sans-serif;
-    color: #e84c3d;
-    text-decoration: none;
-}
-
-.form .register-form {
-    display: none;
-}
 
 button span {
     font-family: 'Open Sans', sans-serif;

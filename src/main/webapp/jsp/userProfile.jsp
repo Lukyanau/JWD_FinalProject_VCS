@@ -27,7 +27,8 @@
 <div class="layout">
     <c:import url="${pageContext.request.contextPath}/jsp/header.jsp"/>
     <div class="layout-body"
-         style="background-image: url(${pageContext.request.contextPath}/images/notification.jpg); background-size: cover;">
+         style="background-image: url(${pageContext.request.contextPath}/images/home.jpg);
+                 background-size: cover;">
         <div class="account-section">
             <div class="container">
                 <div class="account-section__head">

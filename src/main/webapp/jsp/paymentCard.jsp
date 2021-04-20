@@ -19,11 +19,11 @@
     <title><fmt:message key="payment_card.title"/></title>
 
 </head>
-<body background="${pageContext.request.contextPath}/images/home.jpg" style="background-repeat: no-repeat">
+<body style="background-image: url(${pageContext.request.contextPath}/images/creditCard.jpg);background-size: cover;">
 <div class="login-page">
     <c:import url="${pageContext.request.contextPath}/jsp/header.jsp"/>
     <div class="form">
-        <form action="RentCar" method="post" class="login-form">
+        <form action="DeluxeHotel" method="post" class="login-form">
             <input type="text" name="numberCard" placeholder="<fmt:message key="payment_card.card_number"/>"
                    required pattern="^[\d]{4}\s[\d]{4}\s[\d]{4}\s[\d]{4}$"
                    oninvalid="this.setCustomValidity('<fmt:message key="payment_card.incorrect_card_number"/>')"
