@@ -193,7 +193,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    public void checkAccount(User user) throws DaoException {
+    /*public void checkAccount(User user) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.CHECK_ACCOUNT)) {
             statement.setInt(1, user.getUserId());
@@ -204,7 +204,7 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException exp) {
             throw new DaoException(exp);
         }
-    }
+    }*/
 
     private BigDecimal findAccountBalanceByUserId(int userId) throws DaoException {
         BigDecimal accountBalance = null;
@@ -223,7 +223,7 @@ public class UserDaoImpl implements UserDao {
         return accountBalance;
     }
 
-    private void createAccount(User user) throws DaoException {
+    public void createAccount(User user) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.CREATE_ACCOUNT)) {
             statement.setBigDecimal(1, new BigDecimal(0));

@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
             Optional<User> signInUser = userDao.findByLogin(login);
             String userPassword = userDao.findPasswordByLogin(login);
             if (password.equals(userPassword) && signInUser.isPresent()) {
-                checkAccount(signInUser.get());
                 return signInUser;
             } else {
                 throw new IncorrectSignInParametersException("Incorrect sign in parameters");
@@ -70,6 +69,8 @@ public class UserServiceImpl implements UserService {
             verifyPassword(password, confirmPassword);
             User createdUser = userCreator.createUser(name, surname, login, email, phoneNumber, User.Role.USER.getRoleId());
             User registeredUser = userDao.add(createdUser);
+            Optional<User> signUnUser = userDao.findByLogin(login);
+            checkAccount(signUnUser.get());
             userDao.updatePasswordByLogin(login, password);
             return registeredUser;
         } catch (DaoException exp) {
@@ -178,9 +179,7 @@ public class UserServiceImpl implements UserService {
     private void checkAccount(User user) throws ServiceException {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         try {
-            if (user.getRole().getRoleId() == 2) {
-                userDao.checkAccount(user);
-            }
+            userDao.createAccount(user);
         } catch (DaoException exp) {
             throw new ServiceException(exp);
         }
