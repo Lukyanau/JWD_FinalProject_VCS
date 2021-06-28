@@ -26,8 +26,8 @@
 <div class="layout">
     <c:import url="${pageContext.request.contextPath}/jsp/header.jsp"/>
     <div class="layout-body"
-         style="background-image: url(${pageContext.request.contextPath}/images/texture.png); background-repeat: repeat;
-                 background-size: auto; background-attachment: fixed;">
+         style="background-image: url(${pageContext.request.contextPath}/images/signUp.jpg); background-repeat: repeat;
+                 background-size: cover; background-attachment: fixed;">
         <div class="admin-section">
             <div class="container">
                 <h2 class="admin-section__title"><fmt:message key="admin_users.subtitle"/></h2>

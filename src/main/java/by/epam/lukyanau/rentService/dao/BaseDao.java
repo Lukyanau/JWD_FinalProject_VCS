@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface BaseDao<T extends Entity> {
     T add(T t) throws DaoException;
-
     T remove(int id) throws DaoException;
-
     List<T> findAll() throws DaoException;
 }

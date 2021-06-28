@@ -73,6 +73,7 @@ public class CarDaoImpl implements CarDao {
         return allCars;
     }
 
+    @Override
     public Optional<Car> findById(int carId) throws DaoException {
         Optional<Car> car = Optional.empty();
         CarCreator carCreator = CarCreator.getInstance();
@@ -97,7 +98,7 @@ public class CarDaoImpl implements CarDao {
         return car;
     }
 
-
+    @Override
     public List<Car> findFree(String mark, long from, long to) throws DaoException {
         List<Car> freeCars = new ArrayList<>();
         CarCreator carCreator = CarCreator.getInstance();
@@ -122,7 +123,7 @@ public class CarDaoImpl implements CarDao {
         return freeCars;
     }
 
-
+    @Override
     public boolean deleteCar(int carId) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_CAR_BY_ID)) {
@@ -133,6 +134,7 @@ public class CarDaoImpl implements CarDao {
         }
     }
 
+    @Override
     public boolean activateCar(int carId) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.ACTIVATE_CAR_BY_ID)) {
@@ -143,6 +145,7 @@ public class CarDaoImpl implements CarDao {
         }
     }
 
+    @Override
     public boolean deactivateCar(int carId) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DEACTIVATE_CAR_BY_ID)) {
@@ -153,6 +156,7 @@ public class CarDaoImpl implements CarDao {
         }
     }
 
+    @Override
     public int findMarkId(String mark) throws DaoException {
         int markId = 0;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -168,7 +172,8 @@ public class CarDaoImpl implements CarDao {
         return markId;
     }
 
-    private String findMarkById(int markId) throws DaoException {
+    @Override
+    public String findMarkById(int markId) throws DaoException {
         String mark = null;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_MARK_BY_MARK_ID)) {
@@ -183,7 +188,8 @@ public class CarDaoImpl implements CarDao {
         return mark;
     }
 
-    private boolean checkCarStatus(int carId) throws DaoException {
+    @Override
+    public boolean checkCarStatus(int carId) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.CHECK_CAR_STATUS_BY_ID)) {
             statement.setInt(1, carId);

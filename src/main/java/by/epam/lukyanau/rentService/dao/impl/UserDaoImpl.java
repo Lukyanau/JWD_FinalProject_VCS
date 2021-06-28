@@ -118,6 +118,7 @@ public class UserDaoImpl implements UserDao {
         return allUsers;
     }
 
+    @Override
     public boolean updateBalanceByLogin(String login, double sum) throws DaoException {
         boolean isUpdate = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -131,6 +132,7 @@ public class UserDaoImpl implements UserDao {
         return isUpdate;
     }
 
+    @Override
     public Optional<User> findById(int id) throws DaoException {
         UserCreator userCreator = UserCreator.getInstance();
         Optional<User> user = Optional.empty();
@@ -154,6 +156,7 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    @Override
     public boolean banAccount(String login) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.BAN_ACCOUNT_BY_LOGIN)) {
@@ -168,6 +171,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
     public boolean unbanAccount(String login) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UNBAN_ACCOUNT_BY_LOGIN)) {
@@ -182,6 +186,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
     public void updatePasswordByLogin(String login, String password) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_PASSWORD_BY_LOGIN)) {
@@ -193,36 +198,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    /*public void checkAccount(User user) throws DaoException {
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.CHECK_ACCOUNT)) {
-            statement.setInt(1, user.getUserId());
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.next()) {
-                createAccount(user);
-            }
-        } catch (SQLException exp) {
-            throw new DaoException(exp);
-        }
-    }*/
-
-    private BigDecimal findAccountBalanceByUserId(int userId) throws DaoException {
-        BigDecimal accountBalance = null;
-        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement statement =
-                connection.prepareStatement(SqlQuery.FIND_ACCOUNT_BALANCE_BY_USER_ID)){
-            statement.setInt(1,userId);
-            ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
-                accountBalance = resultSet.getBigDecimal("balance");
-            }
-
-        } catch (SQLException exp) {
-            throw new DaoException(exp);
-        }
-        return accountBalance;
-    }
-
+    @Override
     public void createAccount(User user) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.CREATE_ACCOUNT)) {
@@ -233,6 +209,23 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException exp) {
             throw new DaoException(exp);
         }
+    }
+
+    private BigDecimal findAccountBalanceByUserId(int userId) throws DaoException {
+        BigDecimal accountBalance = null;
+        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement(SqlQuery.FIND_ACCOUNT_BALANCE_BY_USER_ID)){
+            statement.setInt(1,userId);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                accountBalance = resultSet.getBigDecimal("balance");
+            }
+
+        } catch (SQLException exp) {
+            throw new DaoException(exp);
+        }
+        return accountBalance;
     }
 
     private boolean checkStatus(int userId) throws DaoException {
