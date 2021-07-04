@@ -27,8 +27,7 @@
 <div class="layout">
     <c:import url="${pageContext.request.contextPath}/jsp/header.jsp"/>
     <div class="layout-body"
-         style="background-image: url(${pageContext.request.contextPath}/images/home.jpg);
-                 background-size: cover;">
+         style="background-image: url(${pageContext.request.contextPath}/images/home.jpg);">
         <div class="account-section">
             <div class="container">
                 <div class="account-section__head">
@@ -104,6 +103,5 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
-
 </html>
 

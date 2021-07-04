@@ -17,8 +17,7 @@
 <div class="layout">
     <c:import url="${pageContext.request.contextPath}/jsp/header.jsp"/>
     <div class="layout-body"
-         style="background-image: url(${pageContext.request.contextPath}/images/notification.jpg);
-                 background-repeat: repeat; background-size: auto; background-attachment: fixed;">
+         style="background-image: url(${pageContext.request.contextPath}/images/home.jpg);">
         <div class="notification">
             <h3 class="notification__title">ERROR 500</h3>
             <p class="notification__text">

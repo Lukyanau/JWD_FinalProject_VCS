@@ -28,8 +28,7 @@
 <body>
 <div class="layout">
     <c:import url="${pageContext.request.contextPath}/jsp/header.jsp"/>
-    <div class="layout-body"
-         style="background-image: url(${pageContext.request.contextPath}/images/signUp.jpg); background-size: cover;">
+    <div class="layout-body" style="background-image: url(${pageContext.request.contextPath}/images/home.jpg);">
         <div class="booking-section">
             <div class="booking-section__inner">
                 <div class="booking-form">
