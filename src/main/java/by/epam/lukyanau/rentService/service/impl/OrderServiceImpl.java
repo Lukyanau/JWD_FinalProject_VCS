@@ -61,6 +61,7 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
+    @Override
     public List<Order> sortByParameter(List<Order> orders, String sortType) throws ServiceException {
         try {
             Comparator<Order> currentComparator = OrderingComparator.valueOf(sortType.toUpperCase()).getComparator();
@@ -71,6 +72,7 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
     public List<Order> findOrdersByUserLogin(String login) throws ServiceException {
         OrderDaoImpl orderDao = OrderDaoImpl.getInstance();
         List<Order> orders;
@@ -82,6 +84,7 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
+    @Override
     public List<Order> findAllOrders() throws ServiceException {
         OrderDaoImpl orderDao = OrderDaoImpl.getInstance();
         List<Order> orders;
@@ -93,6 +96,7 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
+    @Override
     public Optional<Order> findOrderById(String id) throws ServiceException {
         OrderDaoImpl orderDao = OrderDaoImpl.getInstance();
         Optional<Order> foundOrder;
@@ -105,6 +109,7 @@ public class OrderServiceImpl implements OrderService {
         return foundOrder;
     }
 
+    @Override
     public boolean updateOrderStatus(String id, String status) throws ServiceException {
         OrderDaoImpl orderDao = OrderDaoImpl.getInstance();
         try {

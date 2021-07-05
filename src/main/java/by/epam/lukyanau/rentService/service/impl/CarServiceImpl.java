@@ -60,6 +60,7 @@ public class CarServiceImpl implements CarService {
 
     }
 
+    @Override
     public Optional<Car> findById(String carId) throws ServiceException {
         CarDaoImpl carDao = CarDaoImpl.getInstance();
         try {
@@ -70,7 +71,7 @@ public class CarServiceImpl implements CarService {
         }
     }
 
-
+    @Override
     public List<Car> findFreeCarsByParameters(String carMark, String dateFromString, String dateToString) throws ServiceException {
         CarDaoImpl carDao = CarDaoImpl.getInstance();
         List<Car> foundCars;
@@ -87,6 +88,7 @@ public class CarServiceImpl implements CarService {
         return foundCars;
     }
 
+    @Override
     public boolean deleteCar(int carId) throws ServiceException, NullCarException {
         CarDaoImpl carDao = CarDaoImpl.getInstance();
         try {
@@ -100,6 +102,7 @@ public class CarServiceImpl implements CarService {
         }
     }
 
+    @Override
     public boolean activateCar(int carId) throws ServiceException, NullCarException {
         CarDaoImpl carDao = CarDaoImpl.getInstance();
         try {
@@ -113,6 +116,7 @@ public class CarServiceImpl implements CarService {
         }
     }
 
+    @Override
     public boolean deactivateCar(int carId) throws ServiceException, NullCarException {
         CarDaoImpl carDao = CarDaoImpl.getInstance();
         try {
@@ -126,6 +130,7 @@ public class CarServiceImpl implements CarService {
         }
     }
 
+    @Override
     public List<Car> sortByParameter(List<Car> allCars, String sortType) {
         CarPriceComparator priceComparator = CarPriceComparator.getInstance();
         CarModelComparator modelComparator = CarModelComparator.getInstance();

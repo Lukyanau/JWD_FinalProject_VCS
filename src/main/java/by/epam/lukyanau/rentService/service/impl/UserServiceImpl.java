@@ -79,6 +79,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
     public boolean depositMoney(String login, double sum) throws ServiceException {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         boolean isMadeDeposit = false;
@@ -96,6 +97,7 @@ public class UserServiceImpl implements UserService {
         return isMadeDeposit;
     }
 
+    @Override
     public boolean paymentOrdering(User user, double orderingPrice) throws ServiceException {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         double userBalance = user.getBalance().doubleValue();
@@ -111,6 +113,7 @@ public class UserServiceImpl implements UserService {
         return isPayment;
     }
 
+    @Override
     public Optional<User> findUserById(int id) throws ServiceException {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         try {
@@ -120,6 +123,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public List<User> sortUsers(List<User> allUsers, String sortType) {
         UserNameComparator nameComparator = UserNameComparator.getInstance();
         UserLoginComparator loginComparator = UserLoginComparator.getInstance();
@@ -131,6 +135,7 @@ public class UserServiceImpl implements UserService {
         return sortedUsers;
     }
 
+    @Override
     public boolean banAccount(String login) throws ServiceException, NullUserException {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         try {
@@ -144,6 +149,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public boolean unbanAccount(String login) throws ServiceException, NullUserException {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         try {

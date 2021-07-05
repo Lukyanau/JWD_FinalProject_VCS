@@ -26,9 +26,9 @@
 <div class="layout">
     <c:import url="${pageContext.request.contextPath}/jsp/header.jsp"/>
     <div class="layout-body">
-        <div class="section-welcome"
-             style="background-image: url(${pageContext.request.contextPath}/images/signUp.jpg);">
-            <div class="admin-section">
+        <div class="section-welcome">
+            <div class="admin-section" style="background-image: url(${pageContext.request.contextPath}/images/signUp.jpg);  background-repeat: repeat;
+                    background-size: auto; background-attachment: fixed;">
                 <div class="container">
                     <div class="add-rooms-form">
                         <h3 class="add-rooms-form__title"><fmt:message key="admin_cars.add_car"/></h3>
@@ -162,7 +162,6 @@
             </div>
         </div>
     </div>
-    <c:import url="${pageContext.request.contextPath}/jsp/footer.jsp"/>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

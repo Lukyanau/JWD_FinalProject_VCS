@@ -19,7 +19,7 @@ public class UserCreator {
     }
 
     public User createUser(int userId, String name, String surname, String login, String email,
-                           String phoneNumber){
+                           String phoneNumber) {
         return new User(userId, name, surname, login, email, phoneNumber);
     }
 
@@ -37,6 +37,7 @@ public class UserCreator {
                            String email, String phoneNumber) {
         return new User(status, name, surname, login, email, phoneNumber);
     }
+
     public User createUser(BigDecimal balance, boolean status, String name, String surname, String login,
                            String email, String phoneNumber, int roleId) {
         return new User(balance, status, name, surname, login, email, phoneNumber, roleId);

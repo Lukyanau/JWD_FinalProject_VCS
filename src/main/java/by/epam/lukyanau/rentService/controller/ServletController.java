@@ -17,8 +17,6 @@ import static by.epam.lukyanau.rentService.service.util.RequestParameterName.*;
 @WebServlet("/controller")
 public class ServletController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;//yagni - you ain't gonna need it
-
     public ServletController() {
         super();
     }
